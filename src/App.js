@@ -42,7 +42,7 @@ class App extends React.Component {
         <Container>
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/movies" element={<MovieList />} />
+            {/* <Route path="/movies" element={<MovieList />} />
             <Route path="/login" element={<WrappedLoginScreen />} />
             <Route path="/logout" element={<SignOut />} />
             <Route path="/users/profile" element={<UserProfile />} />
@@ -52,7 +52,7 @@ class App extends React.Component {
             <Route path="/add" element={<AddMovie />} />
             <Route path="/pages" element={<Paginate />} />
             <Route path="/card" element={<MovieCard />} />
-            <Route path="/newhome" element={<NewHome />} />
+            <Route path="/newhome" element={<NewHome />} /> */}
           </Routes>
         </Container>
         <Copyright sx={{ mt: 5 }} />
