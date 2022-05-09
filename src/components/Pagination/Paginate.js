@@ -20,14 +20,15 @@ const Paginate = () => {
     setLoading(true);
     const res = await axios.get(MOVIES_URL);
     setLoading(false)
-    setMovies(res.data)
-    console.log(setMovies)
-
+    setMovies(res.data.data)
+    console.log(Math.ceil(res.data.length / MOVIES_PER_PAGE))
     setTotalPages(Math.ceil(res.data.length / MOVIES_PER_PAGE));
     };
     fetchMovies();
+    console.log(totalPages)
     }, []);
 
+    
 
   return (
     <div>
@@ -36,7 +37,7 @@ const Paginate = () => {
             <div className="swiper-wrapper">
               <MovieList movies={movies} page={page}/>
             </div>
-            <Paginationor /> 
+            <Paginationor pages={totalPages} /> 
           </section>
         }
     </div>

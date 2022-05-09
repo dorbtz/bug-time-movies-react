@@ -21,7 +21,7 @@ componentDidMount() {
     const token = window.localStorage.getItem('token')
     axios
         .get(`${BASE_PATH}/movies`)
-        .then(res =>this.setState({movies:res.data}))
+        .then(res =>this.setState({movies:res.data.data}))
     if (token) {
         axios.get(`${BASE_PATH}/user_profile/current`, {headers: {Authorization: 'Token ' + token}})
         .then(res => {

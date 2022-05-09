@@ -19,12 +19,15 @@ const Moviecard = ({ movie }) => {
 
       useEffect(() => {
         axios.get(MOVIES_URL)
-          .then(res => setMovies(res.data))
+          .then(res => {
+            console.log(res.data)
+            setMovies(res.data.data)
+          })
         
   
       }, [])
 
-      const movie_url = `/details/${movie.id}`
+      const movie_url = `/movies/${movie.id}`
 
 
       // const ratingDisplay = ratings.map(ratings {
@@ -32,8 +35,7 @@ const Moviecard = ({ movie }) => {
       // })
 
       const moviesDisplay = movies.map(movie => {
-        console.log(movie.id)
-        const movie_url = `/details/${movie.id}`
+        const movie_url = `/movies/${movie.id}`
         return(
               <div className="card movie_card" key={movie.id}>
                 <img src={movie.image} className="card-img-top" alt="..." />

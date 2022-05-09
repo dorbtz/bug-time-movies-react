@@ -10,7 +10,7 @@ import moment from 'moment';
 // import { BASE_PATH, CURRENT_USER} from './request_utils'
 
 
-const Homepage = () => {
+const NewHome = () => {
 
     const [movies, setMovies] = useState([])
     // const getMovies = async () => {
@@ -178,4 +178,4 @@ return (
   )
 }
 
-export default Homepage
+export default NewHome

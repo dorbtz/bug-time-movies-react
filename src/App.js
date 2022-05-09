@@ -25,6 +25,7 @@ import YoutubeEmbed from "./components/Youtube";
 import Paginate from "./components/Pagination/Paginate";
 import { AddMovie } from "./components/AddMovie";
 // import AddMovie from "./components/movies/AddMovie";
+import NewHome from "./components/NewHome";
 
 class App extends React.Component {
 
@@ -50,6 +51,7 @@ class App extends React.Component {
             <Route path="/add" element={<AddMovie />} />
             <Route path="/pages" element={<Paginate />} />
             <Route path="/card" element={<MovieCard />} />
+            <Route path="/newhome" element={<NewHome />} />
           </Routes>
         </Container>
         <Copyright sx={{ mt: 5 }} />

@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 
 const Paginationor = ({ totalPages }) => {
   const pages = [...Array(totalPages).keys()].map(num => num+1);
-  console.log(pages)
+  console.log(pages[0])
   return (
     <div>
       { pages.map(num => (

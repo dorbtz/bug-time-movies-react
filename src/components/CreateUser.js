@@ -59,7 +59,7 @@ export class CreateUser extends Component {
             theme: "green",
             icon: <FaCheckCircle />
         })
-        window.location.href="/"
+        window.location.href="/users/profile"
     }
 
     render() {

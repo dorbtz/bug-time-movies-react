@@ -22,6 +22,8 @@ const Genres = ({ genre }) => {
         );
     }
 
+    // const options = ["action", "adventure", "animated", "comedy", "crime", "drama", "fantasy", "horror", "historical", "romance", "western", "science-fiction"]
+
     const filterGenres = movies.filter(movie => movie.category).map(filteredMovie => {
         const filteredMovie_url = `/movies/${filteredMovie.category}`
 

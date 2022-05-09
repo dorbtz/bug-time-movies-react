@@ -26,7 +26,7 @@ const MovieDetails = () => {
     {
         console.log(`${MOVIE_DETAIL_URL}${id}`)
         axios.get(`${MOVIE_DETAIL_URL}${id}`)
-            .then(res => setMovie(res.data))
+            .then(res => setMovie(res.data.data))
     }, [])
     
     useEffect(() => {
@@ -36,21 +36,21 @@ const MovieDetails = () => {
     const getData = () => {
         axios.get(MOVIES_URL).then((res) => 
         {
-        setRelated(res.data)}
+        setRelated(res.data.data)}
         );
     }
 
     const deleteMovie = () => {
-        console.log(`${MOVIE_DETAIL_URL}${id}/delete`)
-        axios.delete(`${MOVIE_DETAIL_URL}${id}/delete`, getHeader())
-            .then(res => setMovie(res.data))
+        console.log(`${MOVIE_DETAIL_URL}${id}`)
+        axios.delete(`${MOVIE_DETAIL_URL}${id}`, getHeader())
+            .then(res => setMovie(res.data.data))
     }
 
     const handleEditOpen = () => {
         console.log('called handle Edit Open')
         setShow({showModal: true})
-        axios.put(`${MOVIE_DETAIL_URL}${id}/edit`, getHeader())
-            .then(res => setMovie(res.data))
+        axios.put(`${MOVIE_DETAIL_URL}${id}`, getHeader())
+            .then(res => setMovie(res.data.data))
     }
 
 
@@ -61,7 +61,7 @@ const MovieDetails = () => {
     // }
     /// make delete function work
 
-    const relatedMovies = related.filter(related => related.category === movie.category).map(filteredMovie => {
+    const relatedMovies = related.filter(related => related.category === movie.data.category).map(filteredMovie => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
         return(
             <Row>
@@ -113,7 +113,7 @@ return (
             <h5>{movie.title} ({moment(movie.year_of_production).format('YYYY')})</h5>
             <br></br>
             <div className="trailer_frame">
-            <YoutubeEmbed link={movie.movie_trailer} />
+            {/* <YoutubeEmbed link={movie.movie_trailer} /> */}
             </div>
             </section>
             <section className="movie">
