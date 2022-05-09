@@ -1,31 +1,31 @@
 import React from "react";
-// import 'bootstrap/dist/css/bootstrap.css';
-// // import Home from './components/Home';
+import 'bootstrap/dist/css/bootstrap.css';
+// import Home from './components/Home';
 
-// // import { Movies } from './components/Movies'
-// import MovieList from './components/MovieList'
-// import { Routes, Route } from "react-router-dom";
-// import { Container } from 'react-bootstrap';
-// import { WrappedLoginScreen } from './components/LoginScreen'
-// // import {SignUp} from './components/SignUp'
-// import {CreateUser} from './components/CreateUser'
-// import {UserProfile} from './components/UserProfile'
-// // import { SignInSide } from "./components/SignInSide";
-// // import {UserProfile} from "react-userprofile";
-// import {SignOut} from "./components/SignOut";
-// import Homepage from "./components/Homepage";
-// // import {SignUpItamar} from "./components/ItamarSignUp";
-// import {Header} from "./components/FTHDER/Header";
-// import Copyright from "./components/FTHDER/Footer";
-// // import {TestProf} from './components/testprof'
-// import MovieDetails from "./components/MovieDetails";
-// import MovieCard from "./components/Moviecard";
-// import YoutubeEmbed from "./components/Youtube";
-// // import SearchBar from "./components/SearchBar";
-// import Paginate from "./components/Pagination/Paginate";
-// import { AddMovie } from "./components/AddMovie";
-// // import AddMovie from "./components/movies/AddMovie";
-// import NewHome from "./components/NewHome";
+// import { Movies } from './components/Movies'
+import MovieList from './components/MovieList'
+import { Routes, Route } from "react-router-dom";
+import { Container } from 'react-bootstrap';
+import { WrappedLoginScreen } from './components/LoginScreen'
+// import {SignUp} from './components/SignUp'
+import {CreateUser} from './components/CreateUser'
+import {UserProfile} from './components/UserProfile'
+// import { SignInSide } from "./components/SignInSide";
+// import {UserProfile} from "react-userprofile";
+import {SignOut} from "./components/SignOut";
+import Homepage from "./components/Homepage";
+// import {SignUpItamar} from "./components/ItamarSignUp";
+import {Header} from "./components/FTHDER/Header";
+import Copyright from "./components/FTHDER/Footer";
+// import {TestProf} from './components/testprof'
+import MovieDetails from "./components/MovieDetails";
+import MovieCard from "./components/Moviecard";
+import YoutubeEmbed from "./components/Youtube";
+// import SearchBar from "./components/SearchBar";
+import Paginate from "./components/Pagination/Paginate";
+import { AddMovie } from "./components/AddMovie";
+// import AddMovie from "./components/movies/AddMovie";
+import NewHome from "./components/NewHome";
 
 class App extends React.Component {
 
@@ -33,9 +33,9 @@ class App extends React.Component {
     return(
       
       <div className="App">
-        <h1>Hi</h1>
+        {/* <h1>Hi</h1> */}
         
-        {/* <Container>
+        <Container>
           <Header />
           <hr></hr>
         </Container>
@@ -56,7 +56,7 @@ class App extends React.Component {
           </Routes>
         </Container>
         <Copyright sx={{ mt: 5 }} />
-        <br></br> */}
+        <br></br>
       </div>
 
     )
