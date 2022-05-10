@@ -17,8 +17,8 @@ const Genres = ({ genre }) => {
     const getData = () => {
         axios.get(MOVIES_URL).then((res) => 
         {
-        console.log(res.data)
-        setMovies(res.data)}
+        console.log(res.data.data)
+        setMovies(res.data.data)}
         );
     }
 

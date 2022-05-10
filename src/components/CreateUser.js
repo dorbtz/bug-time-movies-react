@@ -50,16 +50,16 @@ export class CreateUser extends Component {
         };
         axios.post(USER_REGISTRATION, userObject)
             .then((res) => {
-                console.log(res.data)
+                console.log(res.data.data)
             }).catch((error) => {
                 console.log(error)
             });
-        this.setState({ username: '', password: '', email: '' , first_name: '', last_name: ''})
-        toast.success("User created successfuly", {
-            theme: "green",
-            icon: <FaCheckCircle />
-        })
-        window.location.href="/users/profile"
+            this.setState({ username: '', password: '', email: '' , first_name: '', last_name: ''})
+            toast.success("User created successfuly", {
+                theme: "green",
+                icon: <FaCheckCircle />
+            })
+            .then(window.location.href="/users/profile")
     }
 
     render() {
