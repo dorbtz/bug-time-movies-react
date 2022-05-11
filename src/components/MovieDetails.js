@@ -113,7 +113,7 @@ return (
             <h5>{movie.title} ({moment(movie.year_of_production).format('YYYY')})</h5>
             <br></br>
             <div className="trailer_frame">
-            {/* <YoutubeEmbed link={movie.movie_trailer} /> */}
+            <YoutubeEmbed link={movie.movie_trailer} />
             </div>
             </section>
             <section className="movie">
