@@ -106,7 +106,7 @@ export class Header extends React.Component {
                   id={`dropdown-button-drop-end`}
                   drop="end"
                   variant="outline"
-                  title={<h7><BiCategory /> Genres</h7>}
+                  title={<h><BiCategory /> Genres</h>}
                 >
                   <NavDropdown.Item href="/movies/action">Action</NavDropdown.Item>
                   <NavDropdown.Item href="/movies/adventure">Adventure</NavDropdown.Item>
@@ -129,7 +129,7 @@ export class Header extends React.Component {
                   id={`dropdown-button-drop-end`}
                   drop="end"
                   variant="outline"
-                  title={<h7><IoCalendarNumberOutline/> Years</h7>}
+                  title={<h><IoCalendarNumberOutline/> Years</h>}
                 >
                   <NavDropdown.Item href="/movies/year/2022">2022</NavDropdown.Item>
                   <NavDropdown.Item href="/movies/year/2021">2021</NavDropdown.Item>
@@ -151,7 +151,7 @@ export class Header extends React.Component {
                   id={`dropdown-button-drop-end`}
                   drop="end"
                   variant="outline"
-                  title={<h7><MdLanguage/> Languages</h7>}
+                  title={<h><MdLanguage/> Languages</h>}
                 >
                   <NavDropdown.Item href="/movies/language/en">English</NavDropdown.Item>
                   <NavDropdown.Item href="/movies/language/he">Hebrew</NavDropdown.Item>
