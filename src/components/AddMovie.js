@@ -284,7 +284,7 @@ export class AddMovie extends React.Component {
                                   onChange={(event) => this.setState({language: event.target.value})}>
                                   <option value="english">English</option>
                                   <option value="hebrew">Hebrew</option>
-                                  <option value="english">Spanish</option>
+                                  <option value="spanish">Spanish</option>
                                 </Form.Select>
                             </Form.Group>
 
