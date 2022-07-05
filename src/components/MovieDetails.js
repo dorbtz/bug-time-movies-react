@@ -3,7 +3,7 @@ import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
-import {Row, Col, Button} from 'react-bootstrap'
+import {Row, Col, Button, Form, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
 // import axiosInstance from "../axios"
 import GetRate from './getRate';
 // import { Title } from '@mui/icons-material';
@@ -12,6 +12,8 @@ import moment from "moment"
 // import moviesDeleteURL from "./axios";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
+import { toast } from 'react-toastify';
+import {FaCheckCircle} from 'react-icons/fa';
 // import { toast } from 'react-toastify';
 // import {FaCheckCircle} from 'react-icons/fa';
 // import {getHeader} from "./request_utils"
@@ -26,7 +28,7 @@ const MovieDetails = () => {
     {
         console.log(`${MOVIE_DETAIL_URL}${id}`)
         axios.get(`${MOVIE_DETAIL_URL}${id}`)
-            .then(res => setMovie(res.data.data))
+            .then(res => setMovie(res.data))
     }, [])
     
     useEffect(() => {
@@ -43,14 +45,45 @@ const MovieDetails = () => {
     const deleteMovie = () => {
         console.log(`${MOVIE_DETAIL_URL}${id}`)
         axios.delete(`${MOVIE_DETAIL_URL}${id}`, getHeader())
-            .then(res => setMovie(res.data.data))
+            .then(res => setMovie(res.data))
+    }
+
+
+    const handleEditSave = () => {
+        console.log('called handleSaveNew')
+        const editedmovie = {title: movie.title,
+            description: movie.description,
+            image: movie.image,
+            director: movie.director,
+            category: movie.category,
+            language: movie.language,
+            status: movie.status,
+            cast: movie.cast,
+            year_of_production: movie.year_of_production,
+            views_count: movie.views_count,
+            movie_trailer: movie.movie_trailer,
+        }
+        axios.put(
+            `${MOVIE_DETAIL_URL}${id}`
+            ,editedmovie
+            , 
+            getHeader()
+        )
+        .then(response => {
+            if (response.status === 201) {
+                getData();
+            }
+        })
+        setShow({showModal: false})
+        toast("The movie Updated Successfuly", {
+            theme: "green",
+            icon: <FaCheckCircle />
+        })
     }
 
     const handleEditOpen = () => {
-        console.log('called handle Edit Open')
+        console.log('called handleEditOpen')
         setShow({showModal: true})
-        axios.put(`${MOVIE_DETAIL_URL}${id}`, getHeader())
-            .then(res => setMovie(res.data.data))
     }
 
 
@@ -61,7 +94,7 @@ const MovieDetails = () => {
     // }
     /// make delete function work
 
-    const relatedMovies = related.filter(related => related.category === movie.data.category).map(filteredMovie => {
+    const relatedMovies = related.filter(related => related.category === movie.category).map(filteredMovie => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
         return(
             <Row>
@@ -69,7 +102,7 @@ const MovieDetails = () => {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous" />
-                    <style dangerouslySetInnerHTML={{__html: "{font-family: 'Poppins', sans-serif; -webkit-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;}img {-webkit-user-drag: none;-moz-user-drag: none;-o-user-drag: none;user-drag: none;}img {pointer-events: none;}.movie_card{padding: 0 !important;width: 12rem;margin:14px; border-radius: 10px;box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);}.movie_card img{border-top-left-radius: 10px;border-top-right-radius: 10px;height: 15rem;}.movie_info{color: #5e5c5c; display: flex;}.movie_info i{font-size: 25px;}.card-title{width: 80%;height: 4rem;}.play_button{background-color: #ff3d49;   position: absolute;width: 60px;height: 60px;border-radius: 50%;right: 20px;bottom: 111px;font-size: 27px;padding-left: 21px;padding-top: 16px;color: #FFFFFF;cursor: pointer;}.credits{margin-top: 20px;margin-bottom: 20px;border-radius: 8px;border: 2px solid #8e24aa;font-size: 18px;}.credits .card-body{padding: 0;}.credits p{padding-top: 15px;padding-left: 18px;}.credits .card-body i{color: #8e24aa;}" }} />
+                    <style dangerouslySetInnerHTML={{__html: "{font-family: 'Poppins'}img {pointer-events: none;}.movie_card{padding: 0 !important;width: 12rem;margin:14px; border-radius: 10px;box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);}.movie_card img{border-top-left-radius: 10px;border-top-right-radius: 10px;height: 15rem;}.movie_info{color: #black; display: flex;}.movie_info i{font-size: 25px;}.card-title{width: 80%;height: 4rem;}.play_button{background-color: #ff3d49;   position: absolute;width: 60px;height: 60px;border-radius: 50%;right: 20px;bottom: 111px;font-size: 27px;padding-left: 21px;padding-top: 16px;color: #FFFFFF;cursor: pointer;}" }} />
 
                     <div className="card movie_card" key={filteredMovie.id}>
                         <img src={filteredMovie.image} className="card-img-top" alt="..." />
@@ -117,18 +150,9 @@ return (
             </div>
             </section>
             <section className="movie">
-            <img alt="" src={movie.banner} />
                 <Row>
-                    {/* <Col xs={{ order: '1' }}>
-                        <h2>{movie.title}</h2>
-                    </Col> */}
                     <Col xs={{ order: '2' }}>
-                        <h5>Rating </h5>
-                        <p><GetRate id={id} /></p>
-                    </Col>
-                    <Col xs={{ order: '1' }}>
-                        <h5>Views: </h5>
-                        <p>{movie.views_count}</p>
+                        <h5>Rating: <GetRate id={id} /></h5>
                     </Col>
                 </Row>
                 <br></br>
@@ -141,34 +165,139 @@ return (
                 <h4>Cast</h4>
                 {movie.cast}
             </section>
-            <section className="links">
-            <h3>Links</h3>
-            <ul className="dlinks">
-                <li>Download</li>
-                {/* {'{'}% for link in links %{'}'}
-                {'{'}% if link.type == 'D' %{'}'} */}
-                <li><a href="{{link.link}}">Link</a></li>
-                {/* {'{'}% endif %{'}'}
-                {'{'}% endfor %{'}'} */}
-            </ul>
-            <ul className="wlinks">
-                <li>Watch Online</li>
-                {/* {'{'}% for link in links %{'}'}
-                {'{'}% if link.type == 'W' %{'}'} */}
-                <li><a href="{{link.link}}">Link</a></li>
-                {/* {'{'}% endif %{'}'}
-                {'{'}% endfor %{'}'} */}
-            </ul>
-            </section>
+            {/* <section>
+                <img alt="" src={movie.banner} />
+            </section> */}
+            <hr></hr>
             <section className="related">
             <h3>Related Movies</h3>
             {/* {'{'}% for movie in related_movies %{'}'} */}
-            <div className="relatemovie">
-                {relatedMovies}
+            <div className="recentslider">
+                <div className="swiper-container">
+                    <div className="swiper-wrapper">
+                        {relatedMovies}
+                    </div>
+                </div>
             </div>
             {/* {'{'}% endfor %{'}'} */}
             </section>
         </div>
+
+        <Modal show={show.showModal} 
+                    onHide={() => setShow({showModal: false})}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Edit {movie.slug}'s movie</Modal.Title>
+                    </Modal.Header>
+
+                    <ModalBody>
+                        <Form>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="text" placeholder="Enter Movie's Title" 
+                                        value={movie.title}
+                                        onChange={(event) => setMovie({title: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+                    
+                            <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Label>Image/Poster</Form.Label>
+                                <Form.Control type="file" 
+                                value={movie.Image} />
+                            </Form.Group>
+
+                            <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Label>Banner</Form.Label>
+                                <Form.Control type="file" size='sm'
+                                value={movie.Banner}/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="text" placeholder="Enter Movie's description" 
+                                        value={movie.description}
+                                        onChange={(event) => setMovie({description: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Category</Form.Label>
+                                <Form.Select aria-label="Floating label select example" value={movie.category} onChange={(event) => setMovie({category: event.target.value})}>
+                                    <option value="none">Genres</option>
+                                    <option value="action">ACTION</option>
+                                    <option value="adventure">ADVENTURE</option>
+                                    <option value="animated">ANIMATED</option>
+                                    <option value="comedy">COMEDY</option>
+                                    <option value="crime">CRIME</option>
+                                    <option value="drama">DRAMA</option>
+                                    <option value="fantasy">FANTASY</option>
+                                    <option value="horror">HORROR</option>
+                                    <option value="historical">HISTORICAL</option>
+                                    <option value="romance">ROMANCE</option>
+                                    <option value="western">WESTERN</option>
+                                    <option value="science-fiction">SCIENCE FICTION</option>
+                                </Form.Select>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Language</Form.Label>
+                                <Form.Select aria-label="Floating label select example" value={movie.language} 
+                                onChange={(event) => setMovie({language: event.target.value})}>
+                                  <option value="english">English</option>
+                                  <option value="hebrew">Hebrew</option>
+                                  <option value="english">Spanish</option>
+                                </Form.Select>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Status</Form.Label>
+                                <Form.Select aria-label="Floating label select example" value={movie.status} 
+                                onChange={(event) => setMovie({status: event.target.value})} >
+                                  <option value="recently-added">Recently added</option>
+                                  <option value="top-rated">Top rated</option>
+                                  <option value="most-watched">Most watched</option>
+                                </Form.Select>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Cast</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="text" placeholder="Enter Movie's cast" 
+                                        value={movie.cast}
+                                        onChange={(event) => setMovie({cast: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Release Date</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="date" placeholder="Enter Movie's release date" 
+                                        value={movie.year_of_production}
+                                        onChange={(event) => setMovie({year_of_production: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Trailer Link</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="url" placeholder="Enter Trailer's URL" 
+                                        value={movie.movie_trailer}
+                                        onChange={(event) => setMovie({movie_trailer: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+
+                        </Form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button onClick={handleEditSave.bind(movie)}>Save</Button>
+                    </ModalFooter>
+        </Modal>
         </main>
     </div>
 )

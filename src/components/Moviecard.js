@@ -20,7 +20,6 @@ const Moviecard = ({ movie }) => {
       useEffect(() => {
         axios.get(MOVIES_URL)
           .then(res => {
-            console.log(res.data)
             setMovies(res.data.data)
           })
         

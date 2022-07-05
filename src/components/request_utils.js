@@ -1,14 +1,20 @@
 // import axios from "axios"
 
-export const BASE_PATH = 'https://bugtimemovies.herokuapp.com'
+// export const BASE_PATH = 'https://bugtimemovies.herokuapp.com'
 
-// export const BASE_PATH = "http://127.0.0.1:8000"
+export const BASE_PATH = "http://127.0.0.1:8000"
 
 export const MOVIES_URL = `${BASE_PATH}/movies`
 
 export const ADD_MOVIES_URL = `${BASE_PATH}/movies/add`
 
 export const MOVIE_DETAIL_URL = `${BASE_PATH}/movies/`
+
+export const MOVIE_SEARCH_URL = `${BASE_PATH}/movies/?search=`
+
+// export const ACTION_GENRE_URL = `${BASE_PATH}/movies/?category=action`
+
+export const YEAR_URL = `${BASE_PATH}/movies/?year=`
 
 export const GENRES_URL = `${BASE_PATH}/genres`
 

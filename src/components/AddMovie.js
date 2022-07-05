@@ -11,27 +11,32 @@ import { getHeader } from './request_utils';
 
 
 export class AddMovie extends React.Component {
-  
-  state = {
-    movies: [],
-    cast: [],
-    showModal: false,
-    showDetails: false,
-    title: "",
-    description: "",
-    image: "",
-    director: "",
-    category: "",
-    language: "",
-    status: "",
-    year_of_production: "",
-    views_count: 0,
-    movie_trailer: "",
-    slug: "",
-    searchTerm: "",
-    totalResaults: 0,
-    currentPage: 1,
-  };
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      movies: [],
+      cast: "",
+      showModal: false,
+      showDetails: false,
+      title: "",
+      description: "",
+      image: "",
+      director: "",
+      category: "",
+      language: "",
+      status: "",
+      year_of_production: "",
+      views_count: 0,
+      movie_trailer: "",
+      slug: "",
+      searchTerm: "",
+      totalResaults: 0,
+      currentPage: 1,
+    };
+    this.handleSaveNew= this.handleSaveNew.bind(this)
+  }
+    
   
   async componentDidMount() {
 
@@ -72,7 +77,7 @@ export class AddMovie extends React.Component {
           category: this.state.category,
           language: this.state.language,
           status: this.state.status,
-          // cast: this.state.cast,
+          cast: this.state.cast,
           year_of_production: this.state.year_of_production,
           views_count: this.state.views_count,
           movie_trailer: this.state.movie_trailer,
@@ -82,14 +87,13 @@ export class AddMovie extends React.Component {
     )
     .then(response => {
         if (response.status === 201) {
-            this.get_movies()
+          this.setState({showModal: false})
+          toast(`${this.state.title} added successfuly`, {
+              theme: "color",
+              icon: <FaCheckCircle />
+          });
         }
     })
-    this.setState({showModal: false})
-    toast("Updated Successfuly", {
-        theme: "color",
-        icon: <FaCheckCircle />
-    });
   }
 
   nextPage = (pageNumber) => {
@@ -103,19 +107,6 @@ export class AddMovie extends React.Component {
       <div>
         <Container>
           <h1 className="m-3">
-            <span>
-              <Form className="d-flex">
-                  <FormControl
-                  type="search"
-                  placeholder="Search for a movie"
-                  className="me-3"
-                  aria-label="Search"
-                  onChange={(event) => this.setState({search: event.target.value})}
-                  value={this.state.search}
-                  />
-                  <Button fixed="end" variant="outline-info">Search</Button>
-              </Form>
-            </span>
             <span>
                 <Button className="m-3" onClick={this.handleAddNew.bind(this)}>
                     Add Movie <HiDocumentAdd />
@@ -144,10 +135,12 @@ export class AddMovie extends React.Component {
                                 </Form.Text>
                             </Form.Group>
                     
-                            <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Group controlId="formFile" className="mb-2">
                                 <Form.Label>Image/Poster</Form.Label>
-                                <Form.Control type="file" 
-                                value={this.state.Image} />
+                                <Form.Control type="file"
+                                  name="file"
+                                  value={this.state.image} onChange={(event) => this.setState({image: event.target.value})}
+                                  />
                             </Form.Group>
 
                             <Form.Group className="mb-3">
@@ -157,6 +150,16 @@ export class AddMovie extends React.Component {
                                         type="text" placeholder="Enter Movie's Director(s)" 
                                         value={this.state.director}
                                         onChange={(event) => this.setState({director: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Cast</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="text" placeholder="Enter Movie's cast(s)" 
+                                        value={this.state.cast}
+                                        onChange={(event) => this.setState({cast: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
 
@@ -176,73 +179,93 @@ export class AddMovie extends React.Component {
                                 </Form.Text>
                             </Form.Group>
 
-                            <Form value={this.state.category} onChange={(event) => this.setState({category: event.target.value})}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Category</Form.Label>
+                                <Form.Select aria-label="Floating label select example" value={this.state.category} onChange={(event) => this.setState({category: event.target.value})}>
+                                    <option value="none">Genres</option>
+                                    <option value="action">ACTION</option>
+                                    <option value="adventure">ADVENTURE</option>
+                                    <option value="animated">ANIMATED</option>
+                                    <option value="comedy">COMEDY</option>
+                                    <option value="crime">CRIME</option>
+                                    <option value="drama">DRAMA</option>
+                                    <option value="fantasy">FANTASY</option>
+                                    <option value="horror">HORROR</option>
+                                    <option value="historical">HISTORICAL</option>
+                                    <option value="romance">ROMANCE</option>
+                                    <option value="western">WESTERN</option>
+                                    <option value="science-fiction">SCIENCE FICTION</option>
+                                </Form.Select>
+                            </Form.Group>
+
+                            {/* // Multiple Genre choices # Doesn't work' */}
+                            {/* <Form value={this.state.category} onChange={(event) => this.setState({category: event.target.value})}>
                               {['checkbox'].map((movies) => (
                                 <div key={`inline-${movies.id}`} className="mb-3">
                                   <Form.Check
                                     inline
-                                    label="ACTION"
-                                    value="action"
+                                    label="Action"
+                                    value={this.state.category[0]}
                                     id={`inline-${movies.category}-1`}
                                   />
                                   <Form.Check
                                     inline
-                                    label="ADVENTURE"
-                                    value='adventure'
+                                    label="Adventure"
+                                    value={this.state.category[1]}
                                     id={`inline-${movies.category}-2`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Animated"
-                                    value="animated"
+                                    value={this.state.category[2]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Comedy"
-                                    value="comedy"
+                                    value={this.state.category[3]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Crime"
-                                    value="crime"
+                                    value={this.state.category[4]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Drama"
-                                    value="drama"
+                                    value={this.state.category[5]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Fantasy"
-                                    value="fantasy"
+                                    value={this.state.category[6]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Horror"
-                                    value="horror"
+                                    value={this.state.category["horror"]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Historical"
-                                    value="historical"
+                                    value={this.state.category["historical"]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Romance"
-                                    value="romance"
+                                    value={this.state.category["romance"]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
                                     inline
                                     label="Western"
-                                    value="western"
+                                    value={this.state.category["western"]}
                                     id={`inline-${movies.category}-3`}
                                   />
                                   <Form.Check
@@ -253,12 +276,12 @@ export class AddMovie extends React.Component {
                                   />
                                 </div>
                               ))}
-                            </Form>
+                            </Form> */}
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Language</Form.Label>
                                 <Form.Select aria-label="Floating label select example" value={this.state.language} 
-                                onChange={(event) => this.setState({language: event.target.value})}>
+                                  onChange={(event) => this.setState({language: event.target.value})}>
                                   <option value="english">English</option>
                                   <option value="hebrew">Hebrew</option>
                                   <option value="english">Spanish</option>
@@ -268,7 +291,7 @@ export class AddMovie extends React.Component {
                             <Form.Group className="mb-3">
                                 <Form.Label>Status</Form.Label>
                                 <Form.Select aria-label="Floating label select example" value={this.state.status} 
-                                onChange={(event) => this.setState({status: event.target.value})} >
+                                  onChange={(event) => this.setState({status: event.target.value})} >
                                   <option value="recently-added">Recently added</option>
                                   <option value="top-rated">Top rated</option>
                                   <option value="most-watched">Most watched</option>

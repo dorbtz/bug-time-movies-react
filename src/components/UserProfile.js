@@ -81,12 +81,12 @@ render() {
                 <Form.Group className="mb-3">
                     <Form.Group className="mb-3">
                         <Form.Label>City</Form.Label>
-                        <Form.Control value={this.state.user_profile.city}
+                        <Form.Control placeholder="Enter your city" value={this.state.user_profile.city}
                             onChange={(event) => this.setState({ user_profile: { ...this.state.user_profile, city: event.target.value } })} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Address</Form.Label>
-                        <Form.Control value={this.state.user_profile.address}
+                        <Form.Control placeholder="Enter your address" value={this.state.user_profile.address}
                             onChange={(event) => this.setState({ user_profile: { ...this.state.user_profile, address: event.target.value } })} />
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -103,7 +103,7 @@ render() {
                             {moviesObjects}
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group className="mb-3">
+                    {/* <Form.Group className="mb-3">
                     <Form.Label>Favorite Genre</Form.Label>
                             <Form value={this.state.user_profile.favorate_category} onChange={(event) => this.setState({category: event.target.value})}>
                               {['checkbox'].map((movies) => (
@@ -182,7 +182,7 @@ render() {
                                   />
                                 </div>
                               ))}
-                            </Form>
+                            </Form> */}
                         {/* <Form.Select aria-label="Floating label select example" value={this.state.user_profile.favorite_category}
                             onChange={(event) => this.setState({
                                 user_profile: {
@@ -204,7 +204,7 @@ render() {
                             <option value="western">WESTERN</option>
                             <option value="science-fiction">SCIENCE FICTION</option>
                         </Form.Select> */}
-                    </Form.Group>
+                    {/* </Form.Group> */}
                     <div className={"center"}>
                         <Button type="submit"
                             onClick={() => this.updateUserProfile(this.state.user_profile)}>

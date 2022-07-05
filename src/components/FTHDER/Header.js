@@ -2,16 +2,16 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios'
 import { Container, NavDropdown, Nav, DropdownButton } from 'react-bootstrap';
-// import movielogo from '../img/logo/movielogo.png'
+import movielogo from '../../movielogo.png'
 import { HiOutlineLogout, HiHome, HiFilm, HiOutlineLogin } from "react-icons/hi";
 import { FaUser, FaRegSmileWink} from "react-icons/fa";
 import {toast} from "react-toastify";
-import {BASE_PATH, TOKEN, CURRENT_USER } from "../request_utils";
+import {BASE_PATH, TOKEN, CURRENT_USER, YEAR_URL } from "../request_utils";
 import { GiArchiveRegister } from "react-icons/gi";
 import { MdLanguage } from "react-icons/md";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import {SearchBar} from '../SearchBar';
 import { BiCategory } from "react-icons/bi";
+import { useHistory } from 'react-router-dom';
 
 export class Header extends React.Component {
 
@@ -22,6 +22,7 @@ export class Header extends React.Component {
 
       first_name: "",
       last_name: "",
+      movies: [],
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
@@ -73,7 +74,16 @@ export class Header extends React.Component {
       
   }
 
-  
+  // async fetchMoviesByYear(year_of_production) {
+
+  //   let data;
+  //   axios.get(`${YEAR_URL} + ${year_of_production}`)
+  //   .then(res => {
+  //     data = res.data;
+  //     this.setState({movies: data});
+  //   }).catch(err => { })
+
+  // }
 
   render() {
       return(
@@ -82,8 +92,8 @@ export class Header extends React.Component {
           <Navbar.Brand href="/">
           <img
             alt="logo"
-            // src={movielogo}
-            src='./media/logo/movielogo.png'
+            src={movielogo}
+            // src='./media/logo/movielogo.png'
             width="100%"
             height="100%"
             className="d-inline-block align-top"
@@ -106,7 +116,7 @@ export class Header extends React.Component {
                   id={`dropdown-button-drop-end`}
                   drop="end"
                   variant="outline"
-                  title={<h><BiCategory /> Genres</h>}
+                  title={<><BiCategory /> Genres</>}
                 >
                   <NavDropdown.Item href="/movies/action">Action</NavDropdown.Item>
                   <NavDropdown.Item href="/movies/adventure">Adventure</NavDropdown.Item>
@@ -129,7 +139,7 @@ export class Header extends React.Component {
                   id={`dropdown-button-drop-end`}
                   drop="end"
                   variant="outline"
-                  title={<h><IoCalendarNumberOutline/> Years</h>}
+                  title={<><IoCalendarNumberOutline/> Years</>}
                 >
                   <NavDropdown.Item href="/movies/year/2022">2022</NavDropdown.Item>
                   <NavDropdown.Item href="/movies/year/2021">2021</NavDropdown.Item>
@@ -151,15 +161,20 @@ export class Header extends React.Component {
                   id={`dropdown-button-drop-end`}
                   drop="end"
                   variant="outline"
-                  title={<h><MdLanguage/> Languages</h>}
+                  title={<><MdLanguage/> Languages</>}
                 >
-                  <NavDropdown.Item href="/movies/language/en">English</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/language/he">Hebrew</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/language/es">Español</NavDropdown.Item>
+                  <NavDropdown.Item href="/movies/en">English</NavDropdown.Item>
+                  <NavDropdown.Item href="/movies/he">Hebrew</NavDropdown.Item>
+                  <NavDropdown.Item href="/movies/es">Español</NavDropdown.Item>
                 </DropdownButton>
               </NavDropdown>
             </Nav>
             {/* "// SEARCH BAR HERE" */}
+            {/* <SearchBar 
+              value={data.search}
+              onChange={(newValue) => setData({ search: newValue })}
+              onRequestSearch={() => goSearch(data.search)}
+            /> */}
             {/* {SearchBar} */}
             {window.localStorage.getItem(["token"]) ?
             <Navbar.Collapse className="justify-content">

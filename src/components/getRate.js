@@ -14,7 +14,7 @@ const GetRate = (props) => {
 
 
     return(
-        <span className="movie_info float-right"> {rate}/10 <FaStar /></span>
+        <span className="movie_info float-right"> {rate}/10 <FaStar style={{color:"gold"}}/></span>
 )
 }
 
