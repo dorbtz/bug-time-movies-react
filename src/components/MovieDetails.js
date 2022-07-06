@@ -46,6 +46,7 @@ const MovieDetails = () => {
         console.log(`${MOVIE_DETAIL_URL}${id}`)
         axios.delete(`${MOVIE_DETAIL_URL}${id}`, getHeader())
             .then(res => setMovie(res.data))
+            .then(window.location.href="/")
     }
 
 
