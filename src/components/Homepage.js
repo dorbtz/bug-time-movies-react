@@ -44,7 +44,7 @@ const Homepage = () => {
                         <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
                         </i>
                         </Link>
-                        <h5 className="card-title">{filteredMovie.title}</h5>
+                        <h5 className="card-title">{filteredMovie.title}</h5><br></br>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
                         <GetRate id={filteredMovie.id} />
                         </div>
@@ -63,7 +63,7 @@ const Homepage = () => {
                         <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
                         </i>
                         </Link>
-                        <h5 className="card-title">{filteredMovie.title}</h5>
+                        <h5 className="card-title">{filteredMovie.title}</h5><br></br>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
                         <GetRate id={filteredMovie.id} />
                         </div>
@@ -83,7 +83,7 @@ const Homepage = () => {
                         <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
                         </i>
                         </Link>
-                        <h5 className="card-title">{filteredMovie.title}</h5>
+                        <h5 className="card-title">{filteredMovie.title}</h5><br></br>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
                         <GetRate id={filteredMovie.id} />
                         </div>
