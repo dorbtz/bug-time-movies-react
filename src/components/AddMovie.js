@@ -198,86 +198,6 @@ export class AddMovie extends React.Component {
                                 </Form.Select>
                             </Form.Group>
 
-                            {/* // Multiple Genre choices # Doesn't work' */}
-                            {/* <Form value={this.state.category} onChange={(event) => this.setState({category: event.target.value})}>
-                              {['checkbox'].map((movies) => (
-                                <div key={`inline-${movies.id}`} className="mb-3">
-                                  <Form.Check
-                                    inline
-                                    label="Action"
-                                    value={this.state.category[0]}
-                                    id={`inline-${movies.category}-1`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Adventure"
-                                    value={this.state.category[1]}
-                                    id={`inline-${movies.category}-2`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Animated"
-                                    value={this.state.category[2]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Comedy"
-                                    value={this.state.category[3]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Crime"
-                                    value={this.state.category[4]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Drama"
-                                    value={this.state.category[5]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Fantasy"
-                                    value={this.state.category[6]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Horror"
-                                    value={this.state.category["horror"]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Historical"
-                                    value={this.state.category["historical"]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Romance"
-                                    value={this.state.category["romance"]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Western"
-                                    value={this.state.category["western"]}
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Science-fiction"
-                                    value="science-fiction"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                </div>
-                              ))}
-                            </Form> */}
-
                             <Form.Group className="mb-3">
                                 <Form.Label>Language</Form.Label>
                                 <Form.Select aria-label="Floating label select example" value={this.state.language} 
@@ -297,16 +217,6 @@ export class AddMovie extends React.Component {
                                   <option value="most-watched">Most watched</option>
                                 </Form.Select>
                             </Form.Group>
-
-                              {/* <Form.Group className="mb-3">
-                                  <Form.Label>Cast</Form.Label>
-                                  <Form.Text>
-                                    <Form.Control 
-                                        type="text" placeholder="Enter Movie's cast" 
-                                        value={this.state.cast}
-                                        onChange={(event) => this.setState({cast: event.target.value})}/>
-                                  </Form.Text>
-                              </Form.Group> */}
 
 
                             <Form.Group className="mb-3">
