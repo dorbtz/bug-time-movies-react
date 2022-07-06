@@ -2,7 +2,7 @@
 
 // export const BASE_PATH = 'https://bugtimemovies.herokuapp.com'
 
-export const BASE_PATH = "https://bugtimemovies.herokuapp.com/"
+export const BASE_PATH = "https://bugtimemovies.herokuapp.com"
 
 export const MOVIES_URL = `${BASE_PATH}/movies`
 
