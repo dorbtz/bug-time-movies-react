@@ -247,9 +247,9 @@ return (
                                 <Form.Label>Language</Form.Label>
                                 <Form.Select aria-label="Floating label select example" value={movie.language} 
                                 onChange={(event) => setMovie({language: event.target.value})}>
-                                  <option value="english">English</option>
-                                  <option value="hebrew">Hebrew</option>
-                                  <option value="english">Spanish</option>
+                                <option value="english">English</option>
+                                <option value="hebrew">Hebrew</option>
+                                <option value="english">Spanish</option>
                                 </Form.Select>
                             </Form.Group>
 
@@ -257,9 +257,9 @@ return (
                                 <Form.Label>Status</Form.Label>
                                 <Form.Select aria-label="Floating label select example" value={movie.status} 
                                 onChange={(event) => setMovie({status: event.target.value})} >
-                                  <option value="recently-added">Recently added</option>
-                                  <option value="top-rated">Top rated</option>
-                                  <option value="most-watched">Most watched</option>
+                                <option value="recently-added">Recently added</option>
+                                <option value="top-rated">Top rated</option>
+                                <option value="most-watched">Most watched</option>
                                 </Form.Select>
                             </Form.Group>
 

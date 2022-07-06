@@ -202,19 +202,18 @@ export class AddMovie extends React.Component {
                                 <Form.Label>Language</Form.Label>
                                 <Form.Select aria-label="Floating label select example" value={this.state.language} 
                                   onChange={(event) => this.setState({language: event.target.value})}>
-                                  <option value="english">English</option>
-                                  <option value="hebrew">Hebrew</option>
-                                  <option value="spanish">Spanish</option>
+                                  <option value="english">ENGLISH</option>
+                                  <option value="hebrew">HEBREW</option>
+                                  <option value="spanish">SPANISH</option>
                                 </Form.Select>
                             </Form.Group>
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Status</Form.Label>
-                                <Form.Select aria-label="Floating label select example" value={this.state.status} 
-                                  onChange={(event) => this.setState({status: event.target.value})} >
-                                  <option value="recently-added">Recently added</option>
-                                  <option value="top-rated">Top rated</option>
-                                  <option value="most-watched">Most watched</option>
+                                <Form.Select aria-label="Floating label select example" value={this.state.status} onChange={(event) => this.setState({status: event.target.value})}>
+                                  <option value="recently-added">RECENTLY ADDED</option>
+                                  <option value="most-watched">MOST WATCHED</option>
+                                  <option value="top-rated">TOP RATED</option>
                                 </Form.Select>
                             </Form.Group>
 
