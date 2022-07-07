@@ -66,8 +66,7 @@ const MovieDetails = () => {
         }
         axios.put(
             `${MOVIE_DETAIL_URL}${id}`
-            ,editedmovie
-            , 
+            ,editedmovie, 
             getHeader()
         )
         .then(response => {
@@ -170,6 +169,11 @@ return (
                 <img alt="" src={movie.banner} />
             </section> */}
             <hr></hr>
+            <section className="comments">
+                <h3>People comment:</h3>
+                
+            </section>
+            <hr></hr>
             <section className="related">
             <h3>Related Movies</h3>
             {/* {'{'}% for movie in related_movies %{'}'} */}
@@ -187,7 +191,7 @@ return (
         <Modal show={show.showModal} 
                     onHide={() => setShow({showModal: false})}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Edit {movie.slug}'s movie</Modal.Title>
+                        <Modal.Title>Edit {movie.title}'s movie</Modal.Title>
                     </Modal.Header>
 
                     <ModalBody>
@@ -197,7 +201,7 @@ return (
                                 <Form.Text>
                                     <Form.Control 
                                         type="text" placeholder="Enter Movie's Title" 
-                                        value={movie.title}
+                                        value={setMovie.movie.title}
                                         onChange={(event) => setMovie({title: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -205,13 +209,13 @@ return (
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Image/Poster</Form.Label>
                                 <Form.Control type="file" 
-                                value={movie.Image} />
+                                value={setMovie.movie.Image} />
                             </Form.Group>
 
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Banner</Form.Label>
                                 <Form.Control type="file" size='sm'
-                                value={movie.Banner}/>
+                                value={setMovie.movie.Banner}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3">
@@ -219,7 +223,7 @@ return (
                                 <Form.Text>
                                     <Form.Control 
                                         type="text" placeholder="Enter Movie's description" 
-                                        value={movie.description}
+                                        value={setMovie.movie.description}
                                         onChange={(event) => setMovie({description: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
