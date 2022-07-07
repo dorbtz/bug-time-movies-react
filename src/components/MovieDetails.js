@@ -52,21 +52,22 @@ const MovieDetails = () => {
 
     const handleEditSave = () => {
         console.log('called handleSaveNew')
-        const editedmovie = {title: movie.title,
-            description: movie.description,
-            image: movie.image,
-            director: movie.director,
-            category: movie.category,
-            language: movie.language,
-            status: movie.status,
-            cast: movie.cast,
-            year_of_production: movie.year_of_production,
-            views_count: movie.views_count,
-            movie_trailer: movie.movie_trailer,
+        const editedmovie = {title: setMovie.movie.title,
+            description: setMovie.movie.description,
+            image: setMovie.movie.image,
+            director: setMovie.movie.director,
+            category: setMovie.movie.category,
+            language: setMovie.movie.language,
+            status: setMovie.movie.status,
+            cast: setMovie.movie.cast,
+            year_of_production: setMovie.movie.year_of_production,
+            views_count: setMovie.movie.views_count,
+            movie_trailer: setMovie.movie.movie_trailer,
         }
         axios.put(
             `${MOVIE_DETAIL_URL}${id}`
-            ,editedmovie, 
+            ,editedmovie
+            , 
             getHeader()
         )
         .then(response => {
@@ -191,7 +192,7 @@ return (
         <Modal show={show.showModal} 
                     onHide={() => setShow({showModal: false})}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Edit {movie.title}'s movie</Modal.Title>
+                        <Modal.Title>Edit {movie.slug}'s movie</Modal.Title>
                     </Modal.Header>
 
                     <ModalBody>
@@ -201,7 +202,7 @@ return (
                                 <Form.Text>
                                     <Form.Control 
                                         type="text" placeholder="Enter Movie's Title" 
-                                        value={setMovie.movie.title}
+                                        value={movie.title}
                                         onChange={(event) => setMovie({title: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -209,13 +210,13 @@ return (
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Image/Poster</Form.Label>
                                 <Form.Control type="file" 
-                                value={setMovie.movie.Image} />
+                                value={movie.Image} />
                             </Form.Group>
 
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Banner</Form.Label>
                                 <Form.Control type="file" size='sm'
-                                value={setMovie.movie.Banner}/>
+                                value={movie.Banner}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3">
@@ -223,7 +224,7 @@ return (
                                 <Form.Text>
                                     <Form.Control 
                                         type="text" placeholder="Enter Movie's description" 
-                                        value={setMovie.movie.description}
+                                        value={movie.description}
                                         onChange={(event) => setMovie({description: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
