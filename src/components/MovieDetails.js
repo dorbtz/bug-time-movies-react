@@ -1,34 +1,38 @@
 import React, {useState, useEffect} from 'react';
-import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader} from './request_utils';
+import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, MOVIE_COMMENT_URL} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
 import {Row, Col, Button, Form, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
-// import axiosInstance from "../axios"
 import GetRate from './getRate';
-// import { Title } from '@mui/icons-material';
 import { Link } from "react-router-dom" ;
 import moment from "moment"
-// import moviesDeleteURL from "./axios";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import {FaCheckCircle} from 'react-icons/fa';
-// import { toast } from 'react-toastify';
-// import {FaCheckCircle} from 'react-icons/fa';
-// import {getHeader} from "./request_utils"
+// import Comments from './Comment'
+
 
 const MovieDetails = () => {
 
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
     const [related, setRelated] = useState([])
+    const [comment, setComment] = useState([])
     const {id} = useParams()
     useEffect(() =>
     {
         console.log(`${MOVIE_DETAIL_URL}${id}`)
         axios.get(`${MOVIE_DETAIL_URL}${id}`)
             .then(res => setMovie(res.data))
+    }, [])
+
+    useEffect(() =>
+    {
+        console.log(`${MOVIE_COMMENT_URL}${id}`)
+        axios.get(`${MOVIE_COMMENT_URL}${id}`)
+            .then(res => setComment(res.data))
     }, [])
     
     useEffect(() => {
@@ -64,10 +68,8 @@ const MovieDetails = () => {
             views_count: setMovie.movie.views_count,
             movie_trailer: setMovie.movie.movie_trailer,
         }
-        axios.put(
-            `${MOVIE_DETAIL_URL}${id}`
-            ,editedmovie
-            , 
+        axios.put(`${MOVIE_DETAIL_URL}${id}`,
+            editedmovie, 
             getHeader()
         )
         .then(response => {
@@ -88,13 +90,6 @@ const MovieDetails = () => {
     }
 
 
-    // const editMovie = () => {
-    //     console.log(`${MOVIE_DETAIL_URL}${id}/edit`)
-    //     axios.put(`${MOVIE_DETAIL_URL}${id}/edit`)
-    //         .then(res => console.log(setMovie(res.data)))
-    // }
-    /// make delete function work
-
     const relatedMovies = related.filter(related => related.category === movie.category).map(filteredMovie => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
         return(
@@ -103,7 +98,7 @@ const MovieDetails = () => {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous" />
-                    <style dangerouslySetInnerHTML={{__html: "{font-family: 'Poppins'}img {pointer-events: none;}.movie_card{padding: 0 !important;width: 12rem;margin:14px; border-radius: 10px;box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);}.movie_card img{border-top-left-radius: 10px;border-top-right-radius: 10px;height: 15rem;}.movie_info{color: #black; display: flex;}.movie_info i{font-size: 25px;}.card-title{width: 80%;height: 4rem;}.play_button{background-color: #ff3d49;   position: absolute;width: 60px;height: 60px;border-radius: 50%;right: 20px;bottom: 111px;font-size: 27px;padding-left: 21px;padding-top: 16px;color: #FFFFFF;cursor: pointer;}" }} />
+                    <style dangerouslySetInnerHTML={{__html: "{font-family: 'Poppins'}img {pointer-events: none;}.movie_card{padding: 0 !important;width: 12rem;margin:14px; border-radius: 10px;box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);}.movie_card img{border-top-left-radius: 10px;border-top-right-radius: 10px;height: 15rem;}.movie_info{color: #black;}.movie_info i{font-size: 20px;}.card-title{width: 80%;height: 4rem;}.play_button{background-color: #ff3d49;   position: absolute;width: 60px;height: 60px;border-radius: 50%;right: 10px;bottom: 155px;font-size: 27px;padding-left: 21px;padding-top: 16px;color: #FFFFFF;cursor: pointer;}" }} />
 
                     <div className="card movie_card" key={filteredMovie.id}>
                         <img src={filteredMovie.image} className="card-img-top" alt="..." />
@@ -113,9 +108,9 @@ const MovieDetails = () => {
                         <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
                         </i>
                         </Link>
-                        <h5 className="card-title">{filteredMovie.title}</h5>
+                        <h5 className="card-title">{filteredMovie.title}</h5><br></br><br></br>
                         <span className="movie_info">{filteredMovie.year_of_production}</span>
-                        <GetRate id={filteredMovie.id} />
+                        <GetRate key={filteredMovie.id} id={filteredMovie.id} />
                         </div>
                     </div>                
                 </Col>
@@ -123,7 +118,7 @@ const MovieDetails = () => {
         )
     })
 
-
+    
 return (
     <div>
         <main className="content">
@@ -172,7 +167,8 @@ return (
             <hr></hr>
             <section className="comments">
                 <h3>People comment:</h3>
-                
+                <p>this is example of a comment </p>
+                <p>{comment.content}</p>
             </section>
             <hr></hr>
             <section className="related">

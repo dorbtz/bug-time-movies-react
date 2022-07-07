@@ -142,17 +142,6 @@ export class Header extends React.Component {
                   title={<><IoCalendarNumberOutline/> Years</>}
                 >
                   <NavDropdown.Item href="/movies/year/2022">2022</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2021">2021</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2020">2020</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2019">2019</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2018">2018</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2017">2017</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2016">2016</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2015">2015</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2014">2014</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2013">2013</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2012">2012</NavDropdown.Item>
-                  <NavDropdown.Item href="/movies/year/2011">2011</NavDropdown.Item>
                 </DropdownButton>
                 <NavDropdown.Divider />
                 <DropdownButton

@@ -24,7 +24,7 @@ inline: {
 function Comments() {
     const classes = useStyles();
 
-    
+
 
     return (
         <List className={classes.root}>
@@ -42,7 +42,7 @@ function Comments() {
                 className={classes.inline}
                 color="textPrimary"
             >
-                this is comment
+                this is comment for example
             </Typography>
             </React.Fragment>
         }
