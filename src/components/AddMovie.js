@@ -21,7 +21,7 @@ export class AddMovie extends React.Component {
       showDetails: false,
       title: "",
       description: "",
-      image: null,
+      image: "",
       director: "",
       category: "",
       language: "",
