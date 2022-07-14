@@ -168,7 +168,10 @@ return (
             <section className="comments">
                 <h3>People comment:</h3>
                 <p>this is example of a comment </p>
-                <p>{comment.data}</p>
+                {/* <p>{comment.data}</p> */}
+                <p>{comment.movie_name}</p>
+                <p>{comment.sender_username}:{comment.content}</p>
+                <p>testing</p>
             </section>
             <hr></hr>
             <section className="related">
