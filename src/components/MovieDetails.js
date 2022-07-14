@@ -180,7 +180,7 @@ return (
             <hr></hr>
             <section className="comments">
                 <h3>People comment:</h3>
-                <p>this is example of a comment </p>
+                <p>{MovieComments}</p>
                 <p>testing</p>
             </section>
             <hr></hr>
