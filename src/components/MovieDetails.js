@@ -19,7 +19,7 @@ const MovieDetails = () => {
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
     const [related, setRelated] = useState([])
-    const [comment, setComment] = useState([])
+    const [comments, setComments] = useState([])
     const {id} = useParams()
     useEffect(() =>
     {
@@ -32,7 +32,7 @@ const MovieDetails = () => {
     {
         console.log(`${MOVIE_COMMENT_URL}${id}`)
         axios.get(`${MOVIE_COMMENT_URL}${id=movie.id}`)
-            .then(res => setComment(res.data))
+            .then(res => setComments(res.data))
     }, [])
     
     useEffect(() => {
@@ -118,6 +118,19 @@ const MovieDetails = () => {
         )
     })
 
+    const MovieComments = comments.map(comment => {
+        return(
+            <Row>
+                <Col>
+                    <p>{comment.sender_username}: {comment.content}
+                    <br></br>
+                    <hr></hr>
+                    {comment.created_at}
+                    </p>
+                </Col>
+            </Row>
+        )
+    })
     
 return (
     <div>
@@ -168,9 +181,6 @@ return (
             <section className="comments">
                 <h3>People comment:</h3>
                 <p>this is example of a comment </p>
-                {/* <p>{comment.data}</p> */}
-                <p>{comment.movie_name}</p>
-                <p>{comment.sender_username}:{comment.content}</p>
                 <p>testing</p>
             </section>
             <hr></hr>
