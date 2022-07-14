@@ -168,7 +168,7 @@ return (
             <section className="comments">
                 <h3>People comment:</h3>
                 <p>this is example of a comment </p>
-                <p>{comment.content}</p>
+                <p>{comment.data}</p>
             </section>
             <hr></hr>
             <section className="related">
@@ -198,7 +198,7 @@ return (
                                 <Form.Text>
                                     <Form.Control 
                                         type="text" placeholder="Enter Movie's Title" 
-                                        value={movie.title}
+                                        value={this.movie.title}
                                         onChange={(event) => setMovie({title: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -206,7 +206,7 @@ return (
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Image/Poster</Form.Label>
                                 <Form.Control type="file" 
-                                value={movie.Image} />
+                                value={this.movie.Image} />
                             </Form.Group>
 
                             <Form.Group controlId="formFile" className="mb-3">
