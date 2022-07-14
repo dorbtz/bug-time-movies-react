@@ -201,7 +201,7 @@ return (
                                 <Form.Text>
                                     <Form.Control 
                                         type="text" placeholder="Enter Movie's Title" 
-                                        value={this.movie.title}
+                                        value={movie.title}
                                         onChange={(event) => setMovie({title: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -209,7 +209,7 @@ return (
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Image/Poster</Form.Label>
                                 <Form.Control type="file" 
-                                value={this.movie.Image} />
+                                value={movie.Image} />
                             </Form.Group>
 
                             <Form.Group controlId="formFile" className="mb-3">
