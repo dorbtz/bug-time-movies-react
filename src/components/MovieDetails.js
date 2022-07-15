@@ -30,9 +30,9 @@ const MovieDetails = () => {
 
     useEffect(() =>
     {   
-        const i = movie.id
-        console.log(`${MOVIE_COMMENT_URL}${i}`)
-        axios.get(`${MOVIE_COMMENT_URL}${i}`)
+        let id
+        console.log(`${MOVIE_COMMENT_URL}${id=movie.id}`)
+        axios.get(`${MOVIE_COMMENT_URL}${id=movie.id}`)
             .then(res => setComments(res.data))
     }, [])
     
