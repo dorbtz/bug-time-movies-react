@@ -1,33 +1,17 @@
 import axiosInstance from "../axios";
 import React, {useState, useEffect} from "react"
 import {MOVIE_COMMENTS_URL} from './request_utils'
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        maxWidth: '36ch',
-        backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-        display: 'inline',
-    },
-    }));
+import { Button, Comment, Form } from 'semantic-ui-react'
+import cn from "classnames";
+import { AiOutlineLike } from "react-icons/ai";
 
 
 const GetComments = (props) => {
 
     const [comment, setComment] = useState([])
 
-    const classes = useStyles();
+    const [liked, setLiked] = useState(null);
+    const [clicked, setClicked] = useState(false);
 
     useEffect(() => {
         axiosInstance.get(`${MOVIE_COMMENTS_URL}/${props.id}`)
@@ -37,30 +21,69 @@ const GetComments = (props) => {
 
 
     return(
-        <List className={classes.root}>
-        <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-                <Avatar alt="default" src="https://www.citypng.com/public/uploads/preview/png-round-blue-contact-user-profile-icon-11639786938sxvzj5ogua.png" />
-            </ListItemAvatar>
-            <ListItemText
-            primary={comment.sender_username}
-            secondary={
-                <React.Fragment>
-                <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                >
-                    this is comment for example:
-                    {comment.content}
-                </Typography>
-                </React.Fragment>
-            }
-            />
-        </ListItem>
-        <Divider variant="inset" component="li" />  
-        </List>
+        <Comment.Group>
+
+            <Comment>
+            <Comment.Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' />
+            <Comment.Content>
+                <Comment.Author as='a'>{comment.sender_username}</Comment.Author>
+                <Comment.Metadata>
+                <div>{comment.created_at}</div>
+                </Comment.Metadata>
+                <Comment.Text>
+                <p>{comment.content}</p>
+                </Comment.Text>
+                <Comment.Actions>
+                <Comment.Action onClick={() => {
+                                setLiked(!liked);
+                                setClicked(true);
+                            }}
+                            onAnimationEnd={() => setClicked(false)}
+                            className={cn("like-button-wrapper", {
+                                liked,
+                                clicked,
+                            })}>
+                                <div className="like-button">
+                                    <AiOutlineLike />
+                                    <span>Like</span>
+                                    <span className={cn("suffix", { liked })}>d</span>
+                                </div>
+                </Comment.Action>
+                </Comment.Actions>
+            </Comment.Content>
+            </Comment>
+
+            <Form reply>
+            <Form.TextArea />
+            <Button content='Post Comment' labelPosition='left' icon='edit' primary />
+            </Form>
+        </Comment.Group>
+
+
+        // <List className={classes.root}>
+        // <ListItem alignItems="flex-start">
+        //     <ListItemAvatar>
+        //         <Avatar alt="default" src="https://www.citypng.com/public/uploads/preview/png-round-blue-contact-user-profile-icon-11639786938sxvzj5ogua.png" />
+        //     </ListItemAvatar>
+        //     <ListItemText
+        //     primary={comment.sender_username}
+        //     secondary={
+        //         <React.Fragment>
+        //         <Typography
+        //             component="span"
+        //             variant="body2"
+        //             className={classes.inline}
+        //             color="textPrimary"
+        //         >
+        //             this is comment for example:
+        //             {comment.content}
+        //         </Typography>
+        //         </React.Fragment>
+        //     }
+        //     />
+        // </ListItem>
+        // <Divider variant="inset" component="li" />  
+        // </List>
 )
 }
 
