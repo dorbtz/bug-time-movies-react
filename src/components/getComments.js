@@ -2,7 +2,7 @@ import axiosInstance from "../axios";
 import React, {useState, useEffect} from "react"
 import {MOVIE_COMMENTS_URL} from './request_utils'
 import { Button, Comment, Form } from 'semantic-ui-react'
-// import cn from "classnames";
+import cn from "classnames";
 import { AiOutlineLike } from "react-icons/ai";
 
 
