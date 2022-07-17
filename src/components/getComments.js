@@ -1,14 +1,14 @@
 import axiosInstance from "../axios";
 import React, {useState, useEffect} from "react"
 import {MOVIE_COMMENTS_URL} from './request_utils'
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@mui/core/styles';
+import List from '@mui/core/List';
+import ListItem from '@mui/core/ListItem';
+import Divider from '@mui/core/Divider';
+import ListItemText from '@mui/core/ListItemText';
+import ListItemAvatar from '@mui/core/ListItemAvatar';
+import Avatar from '@mui/core/Avatar';
+import Typography from '@mui/core/Typography';
 
 
 const useStyles = makeStyles((theme) => ({
