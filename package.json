@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/styled": "^11.9.3",
     "@emotion/stylis": "^0.8.5",
     "@emotion/unitless": "^0.7.5",
     "@fontsource/roboto": "^4.5.5",
