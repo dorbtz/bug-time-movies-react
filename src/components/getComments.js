@@ -1,7 +1,7 @@
 import axiosInstance from "../axios";
 import React, {useState, useEffect} from "react"
 import {MOVIE_COMMENTS_URL} from './request_utils'
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
