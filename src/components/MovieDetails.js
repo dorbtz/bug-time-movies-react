@@ -189,7 +189,7 @@ return (
             <hr></hr>
             <section className="comments">
                 <h3>People comment:</h3>
-                    <GetComments key={movie.id} id={movie.id} />
+                    {/* <GetComments key={movie.id} id={movie.id} /> */}
             </section>
             <hr></hr>
             <section className="related">

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react"
 import {MOVIE_COMMENTS_URL} from './request_utils'
 import { Button, Comment, Form } from 'semantic-ui-react'
 // import cn from "classnames";
-// import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 
 
 const GetComments = (props) => {
@@ -33,8 +33,8 @@ const GetComments = (props) => {
                 <Comment.Text>
                 <p>{comment.content}</p>
                 </Comment.Text>
-                {/* <Comment.Actions> */}
-                {/* <Comment.Action onClick={() => {
+                <Comment.Actions>
+                <Comment.Action onClick={() => {
                                 setLiked(!liked);
                                 setClicked(true);
                             }}
@@ -48,8 +48,8 @@ const GetComments = (props) => {
                                     <span>Like</span>
                                     <span className={cn("suffix", { liked })}>d</span>
                                 </div>
-                </Comment.Action> */}
-                {/* </Comment.Actions> */}
+                </Comment.Action>
+                </Comment.Actions>
             </Comment.Content>
             </Comment>
 
