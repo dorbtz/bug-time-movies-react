@@ -53,7 +53,7 @@ const GetComments = (props) => {
             </Comment.Content>
             </Comment>
 
-            <Form reply Position='center'>
+            <Form reply>
             <Form.TextArea />
             <Button content='Post Comment' labelPosition='cenleftter' icon='edit' primary />
             </Form>
