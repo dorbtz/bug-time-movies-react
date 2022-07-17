@@ -1,7 +1,7 @@
 import axiosInstance from "../axios";
 import React, {useState, useEffect} from "react"
 import {MOVIE_COMMENTS_URL} from './request_utils'
-import makeStyles from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -11,19 +11,18 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        maxWidth: '36ch',
-        backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-        display: 'inline',
-    },
-    }));
-
-
 const GetComments = (props) => {
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            width: '100%',
+            maxWidth: '36ch',
+            backgroundColor: theme.palette.background.paper,
+        },
+        inline: {
+            display: 'inline',
+        },
+        }));
 
     const [comment, setComment] = useState(0)
 
