@@ -14,7 +14,7 @@ const GetComments = (props) => {
     const [clicked, setClicked] = useState(false);
 
     useEffect(() => {
-        axiosInstance.get(`${MOVIE_COMMENTS_URL}/${props.id}`)
+        axiosInstance.get(`${MOVIE_COMMENTS_URL}${props.id}`)
         .then(res => setComment(res.data))
     
     }, [])
@@ -24,16 +24,16 @@ const GetComments = (props) => {
         <Comment.Group>
 
             <Comment>
-            <Comment.Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' />
+            {/* <Comment.Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' /> */}
             <Comment.Content>
-                <Comment.Author as='a'>{comment.sender_username}</Comment.Author>
+                <Comment.Author as='a'>user:{comment.sender_username}</Comment.Author>
                 <Comment.Metadata>
-                <div>{comment.created_at}</div>
+                <div>{comment.created_at} date created</div>
                 </Comment.Metadata>
                 <Comment.Text>
-                <p>{comment.content}</p>
+                <p>said: {comment.content}</p>
                 </Comment.Text>
-                <Comment.Actions>
+                {/* <Comment.Actions>
                 <Comment.Action onClick={() => {
                                 setLiked(!liked);
                                 setClicked(true);
@@ -49,7 +49,7 @@ const GetComments = (props) => {
                                     <span className={cn("suffix", { liked })}>d</span>
                                 </div>
                 </Comment.Action>
-                </Comment.Actions>
+                </Comment.Actions> */}
             </Comment.Content>
             </Comment>
 
