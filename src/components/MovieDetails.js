@@ -11,7 +11,7 @@ import { IoRemoveCircleSharp } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import {FaCheckCircle} from 'react-icons/fa';
-import {GetComments} from './getComments'
+import GetComments from './getComments'
 
 
 const MovieDetails = () => {
