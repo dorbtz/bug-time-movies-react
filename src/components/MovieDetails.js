@@ -19,7 +19,7 @@ const MovieDetails = () => {
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
     const [related, setRelated] = useState([])
-    const [comments, setComments] = useState([])
+    const [comment, setComment] = useState([])
     const {id} = useParams()
     useEffect(() =>
     {

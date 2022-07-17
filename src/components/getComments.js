@@ -53,9 +53,9 @@ const GetComments = (props) => {
             </Comment.Content>
             </Comment>
 
-            <Form reply>
+            <Form reply Position='center'>
             <Form.TextArea />
-            <Button content='Post Comment' labelPosition='left' icon='edit' primary />
+            <Button content='Post Comment' labelPosition='cenleftter' icon='edit' primary />
             </Form>
         </Comment.Group>
 
