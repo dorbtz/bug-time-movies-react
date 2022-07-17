@@ -24,7 +24,21 @@ inline: {
 function Comments() {
     const classes = useStyles();
 
+    const GetRate = (props) => {
 
+        const [comment, setComment] = useState(0)
+    
+        useEffect(() => {
+            axiosInstance.get(`rating_detail/${props.id}`)
+            .then(res => setComment(res.data.avg_comment))
+        
+        }, [])
+    
+    
+        return(
+            <span className="movie_info float-right"> {comment}/10 <FaStar style={{color:"gold"}}/></span>
+    )
+    }
 
     return (
         <List className={classes.root}>

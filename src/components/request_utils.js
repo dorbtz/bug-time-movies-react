@@ -12,7 +12,9 @@ export const MOVIE_DETAIL_URL = `${BASE_PATH}/movies/`
 
 export const MOVIE_SEARCH_URL = `${BASE_PATH}/movies/?search=`
 
-export const MOVIE_COMMENT_URL = `${BASE_PATH}/all_comments/`
+export const MOVIE_COMMENTS_URL = `${BASE_PATH}/all_comments/`
+
+export const COMMENT_URL = `${BASE_PATH}/comment/`
 
 // export const ACTION_GENRE_URL = `${BASE_PATH}/movies/?category=action`
 

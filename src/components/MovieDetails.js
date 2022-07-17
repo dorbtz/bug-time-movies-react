@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, MOVIE_COMMENT_URL} from './request_utils';
+import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, MOVIE_COMMENTS_URL, COMMENT_URL} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
@@ -11,7 +11,7 @@ import { IoRemoveCircleSharp } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import {FaCheckCircle} from 'react-icons/fa';
-// import Comments from './Comment'
+import {GetComments} from './getComments'
 
 
 const MovieDetails = () => {
@@ -28,13 +28,21 @@ const MovieDetails = () => {
             .then(res => setMovie(res.data))
     }, [])
 
-    useEffect(() =>
-    {   
-        let id
-        console.log(`${MOVIE_COMMENT_URL}${id=movie.id}`)
-        axios.get(`${MOVIE_COMMENT_URL}${id=movie.id}`)
-            .then(res => setComments(res.data))
-    }, [])
+    // useEffect(() =>
+    // {   
+    //     let id
+    //     console.log(`${MOVIE_COMMENTS_URL}${id=movie.id}`)
+    //     axios.get(`${MOVIE_COMMENTS_URL}${id=movie.id}`)
+    //         .then(res => setComments(res.data))
+    // }, [])
+
+    // const addComments = () => {
+    //     console.log()
+    //     axios.post(COMMENT_URL, {
+    //         movie_name: movie.title,
+    //         content: comments.content
+    //     })
+    // }
     
     useEffect(() => {
         getData();
@@ -119,19 +127,19 @@ const MovieDetails = () => {
         )
     })
 
-    const MovieComments = comments.map(comment => {
-        return(
-            <Row>
-                <Col>
-                    <p>{comment.sender_username}: {comment.content}
-                    <br></br>
-                    <hr></hr>
-                    {comment.created_at}
-                    </p>
-                </Col>
-            </Row>
-        )
-    })
+    // const MovieComments = comments.map(comment => {
+    //     return(
+    //         <Row>
+    //             <Col>
+    //                 <p>{comment.sender_username}: {comment.content}
+    //                 <br></br>
+    //                 <hr></hr>
+    //                 {comment.created_at}
+    //                 </p>
+    //             </Col>
+    //         </Row>
+    //     )
+    // })
     
 return (
     <div>
@@ -181,8 +189,7 @@ return (
             <hr></hr>
             <section className="comments">
                 <h3>People comment:</h3>
-                <p>{MovieComments}</p>
-                <p>testing</p>
+                    <GetComments key={movie.id} id={movie.id} />
             </section>
             <hr></hr>
             <section className="related">
