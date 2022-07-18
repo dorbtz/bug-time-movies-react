@@ -91,7 +91,7 @@ const MovieDetails = () => {
         console.log()
         axios.post(RATE_MOVIE_URL, {
             movie: movie.id,
-            rating: rate.rating
+            rating: rate
         })
     }
 
@@ -102,7 +102,7 @@ const MovieDetails = () => {
             <RangeSlider
                 value={rate}
                 onChange={changeEvent => setRate(changeEvent.target.value)}
-            ><Button color="primary" onClick={handleRate}>Save</Button></RangeSlider>
+            />
         </Popover.Body>
     </Popover>
     );
