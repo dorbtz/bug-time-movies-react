@@ -38,11 +38,11 @@ const MovieDetails = () => {
     //         .then(res => setComments(res.data))
     // }, [])
 
-    // const addComments = () => {
+    // const addRating = () => {
     //     console.log()
-    //     axios.post(COMMENT_URL, {
-    //         movie_name: movie.title,
-    //         content: comments.content
+    //     axios.post(RATE_MOVIE_URL, {
+    //         movie: movie.title,
+    //         rating: this.rating
     //     })
     // }
     
@@ -102,7 +102,7 @@ const MovieDetails = () => {
 
     const popover = (
     <Popover id="popover-basic">
-        <Popover.Header as="h3">Rate Movie</Popover.Header>
+        <Popover.Header as="h3">Rate {movie.title}</Popover.Header>
         <Popover.Body>
             axios post with the selected number
         </Popover.Body>
