@@ -12,7 +12,6 @@ import { FiEdit } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import {FaCheckCircle} from 'react-icons/fa';
 import GetComments from './getComments'
-import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
@@ -208,7 +207,7 @@ return (
             <hr></hr>
             <section className="comments">
                 <h3>People comment:</h3>
-                    <GetComments key={movie.id} id={movie.id} />
+                    <GetComments key={id} id={id} />
             </section>
             <hr></hr>
             <section className="related">
