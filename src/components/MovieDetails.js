@@ -172,6 +172,7 @@ return (
                     <Col xs={{ order: '2' }}>
                         <h5>Rating: <GetRate id={id} /></h5>
                     </Col>
+                    <Button>Rate</Button>
                 </Row>
                 <br></br>
                 <h4>Description</h4>

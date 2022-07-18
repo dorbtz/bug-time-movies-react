@@ -1,4 +1,4 @@
-import axiosInstance from "../axios";
+import axios from 'axios';
 import React, {useState, useEffect} from "react"
 import {MOVIE_COMMENTS_URL} from './request_utils'
 import { Button, Comment, Form } from 'semantic-ui-react'
@@ -8,16 +8,16 @@ import { AiOutlineLike } from "react-icons/ai";
 
 const GetComments = (props) => {
 
-    const [comment, setComment] = useState()
+    const [comment, setComment] = useState([])
 
     const [liked, setLiked] = useState(null);
     const [clicked, setClicked] = useState(false);
 
     useEffect(() => {
-        axiosInstance.get(`all_comments/${props.id}`)
-        .then(res => setComment(res.data.data))
-        console.log(data);
-        
+        axios.get(`${MOVIE_COMMENTS_URL}${props.id}`)
+        .then(res => setComment(res.data))
+        console.log(res.data)
+
     }, [])
 
 
