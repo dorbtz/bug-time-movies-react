@@ -14,9 +14,10 @@ const GetComments = (props) => {
     const [clicked, setClicked] = useState(false);
 
     useEffect(() => {
+        let data;
         axios.get(`${MOVIE_COMMENTS_URL}${props.id}`)
         .then(res => setComment(res.data))
-        console.log(res.data)
+        console.log(data)
 
     }, [])
 
