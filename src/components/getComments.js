@@ -15,9 +15,9 @@ const GetComments = (props) => {
 
     useEffect(() => {
         axiosInstance.get(`all_comments/${props.id}`)
-        .then(res => setComment(res.data))
-        console.log(data)
-    
+        .then(res => setComment(res.data.data))
+        console.log(data);
+        
     }, [])
 
 
