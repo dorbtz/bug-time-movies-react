@@ -179,7 +179,7 @@ return (
             <section className="movie">
                 <Row>
                     <Col xs={{ order: '2' }}>
-                        <h5>Rating: <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                        <h5>Rating: <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                                         <Button>Rate this movie</Button>
                                     </OverlayTrigger> | <GetRate id={id} />
                         </h5>
