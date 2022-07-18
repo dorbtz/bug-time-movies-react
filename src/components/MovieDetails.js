@@ -22,6 +22,7 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState([])
     const [related, setRelated] = useState([])
     // const [comment, setComment] = useState([])
+    const [rate, setRate] = useState(0)
     const {id} = useParams()
     useEffect(() =>
     {
@@ -30,21 +31,14 @@ const MovieDetails = () => {
             .then(res => setMovie(res.data))
     }, [])
 
-    // useEffect(() =>
-    // {   
-    //     let id
-    //     console.log(`${MOVIE_COMMENTS_URL}${id=movie.id}`)
-    //     axios.get(`${MOVIE_COMMENTS_URL}${id=movie.id}`)
-    //         .then(res => setComments(res.data))
-    // }, [])
 
-    // const addRating = () => {
-    //     console.log()
-    //     axios.post(RATE_MOVIE_URL, {
-    //         movie: movie.title,
-    //         rating: this.rating
-    //     })
-    // }
+    const handleRate = () => {
+        console.log()
+        axios.post(RATE_MOVIE_URL, {
+            movie: movie.id,
+            rating: rate.rating
+        })
+    }
     
     useEffect(() => {
         getData();
@@ -104,7 +98,10 @@ const MovieDetails = () => {
     <Popover id="popover-basic">
         <Popover.Header as="h3">Rate {movie.title}</Popover.Header>
         <Popover.Body>
-            axios post with the selected number
+            <RangeSlider
+                value={rate.rating}
+                onChange={changeEvent => setRate(changeEvent.target.value)}
+            ><Button color="success" onClick={handleRate}>Save</Button></RangeSlider>
         </Popover.Body>
     </Popover>
     );
@@ -181,10 +178,10 @@ return (
             <section className="movie">
                 <Row>
                     <Col xs={{ order: '2' }}>
-                        <h5>Rating: <GetRate id={id} /></h5>
-                    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                        <Button>Rate this movie</Button>
-                    </OverlayTrigger>
+                        <h5>Rating: <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                                        <Button>Rate this movie</Button>
+                                    </OverlayTrigger> | <GetRate id={id} />
+                        </h5>
                     </Col>
                 </Row>
                 <br></br>
