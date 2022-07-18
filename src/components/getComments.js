@@ -8,14 +8,15 @@ import { AiOutlineLike } from "react-icons/ai";
 
 const GetComments = (props) => {
 
-    const [comment, setComment] = useState([])
+    const [comment, setComment] = useState()
 
     const [liked, setLiked] = useState(null);
     const [clicked, setClicked] = useState(false);
 
     useEffect(() => {
         axiosInstance.get(`all_comments/${props.id}`)
-        .then(res => setComment(res.data))
+        .then(response => setComment(response.data))
+        console.log(response.data)
     
     }, [])
 
