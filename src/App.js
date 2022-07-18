@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 // import Home from './components/Home';
 import ThemeProvider from 'react-bootstrap/ThemeProvider';
 

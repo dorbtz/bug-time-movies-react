@@ -14,6 +14,7 @@ import {FaCheckCircle} from 'react-icons/fa';
 import GetComments from './getComments'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import RangeSlider from 'react-bootstrap-range-slider';
 
 
 const MovieDetails = () => {
