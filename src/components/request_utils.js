@@ -16,6 +16,8 @@ export const MOVIE_COMMENTS_URL = `${BASE_PATH}/all_comments/`
 
 export const COMMENT_URL = `${BASE_PATH}/comment/`
 
+export const RATE_MOVIE_URL = `${BASE_PATH}/rate/`
+
 // export const ACTION_GENRE_URL = `${BASE_PATH}/movies/?category=action`
 
 export const YEAR_URL = `${BASE_PATH}/movies/?year=`

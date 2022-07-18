@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, MOVIE_COMMENTS_URL, COMMENT_URL} from './request_utils';
+import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, MOVIE_COMMENTS_URL, COMMENT_URL, RATE_MOVIE_URL} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
@@ -12,6 +12,9 @@ import { FiEdit } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import {FaCheckCircle} from 'react-icons/fa';
 import GetComments from './getComments'
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 
 
 const MovieDetails = () => {
@@ -98,6 +101,21 @@ const MovieDetails = () => {
         setShow({showModal: true})
     }
 
+    const popover = (
+    <Popover id="popover-basic">
+        <Popover.Header as="h3">Rate Movie</Popover.Header>
+        <Popover.Body>
+        And here's some <strong>amazing</strong> content. It's very engaging.
+        right?
+        </Popover.Body>
+    </Popover>
+    );
+    
+    const Rate = () => (
+    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <Button variant="success">Rate this movie</Button>
+    </OverlayTrigger>
+    );
 
     const relatedMovies = related.filter(related => related.category === movie.category).map(filteredMovie => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
@@ -171,8 +189,8 @@ return (
                 <Row>
                     <Col xs={{ order: '2' }}>
                         <h5>Rating: <GetRate id={id} /></h5>
+                        <Rate />
                     </Col>
-                    <Button>Rate</Button>
                 </Row>
                 <br></br>
                 <h4>Description</h4>
