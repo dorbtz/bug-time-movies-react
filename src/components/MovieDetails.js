@@ -32,14 +32,6 @@ const MovieDetails = () => {
             .then(res => setMovie(res.data))
     }, [])
 
-
-    const handleRate = () => {
-        console.log()
-        axios.post(RATE_MOVIE_URL, {
-            movie: movie.id,
-            rating: rate.rating
-        })
-    }
     
     useEffect(() => {
         getData();
@@ -95,17 +87,27 @@ const MovieDetails = () => {
         setShow({showModal: true})
     }
 
+    const handleRate = () => {
+        console.log()
+        axios.post(RATE_MOVIE_URL, {
+            movie: movie.id,
+            rating: rate.rating
+        })
+    }
+
     const popover = (
     <Popover id="popover-basic">
         <Popover.Header as="h3">Rate {movie.title}</Popover.Header>
         <Popover.Body>
             <RangeSlider
-                value={rate.rating}
+                value={rate}
                 onChange={changeEvent => setRate(changeEvent.target.value)}
-            ><Button color="success" onClick={handleRate}>Save</Button></RangeSlider>
+            ><Button color="primary" onClick={handleRate}>Save</Button></RangeSlider>
         </Popover.Body>
     </Popover>
     );
+
+    
     
 
     const relatedMovies = related.filter(related => related.category === movie.category).map(filteredMovie => {
