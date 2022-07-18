@@ -21,7 +21,7 @@ const MovieDetails = () => {
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
     const [related, setRelated] = useState([])
-    const [comment, setComment] = useState([])
+    // const [comment, setComment] = useState([])
     const {id} = useParams()
     useEffect(() =>
     {
@@ -104,17 +104,11 @@ const MovieDetails = () => {
     <Popover id="popover-basic">
         <Popover.Header as="h3">Rate Movie</Popover.Header>
         <Popover.Body>
-        And here's some <strong>amazing</strong> content. It's very engaging.
-        right?
+            axios post with the selected number
         </Popover.Body>
     </Popover>
     );
     
-    const Rate = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-        <Button variant="success">Rate this movie</Button>
-    </OverlayTrigger>
-    );
 
     const relatedMovies = related.filter(related => related.category === movie.category).map(filteredMovie => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
@@ -188,7 +182,9 @@ return (
                 <Row>
                     <Col xs={{ order: '2' }}>
                         <h5>Rating: <GetRate id={id} /></h5>
-                        <Rate />
+                    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                        <Button>Rate this movie</Button>
+                    </OverlayTrigger>
                     </Col>
                 </Row>
                 <br></br>

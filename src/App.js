@@ -52,6 +52,7 @@ class App extends React.Component {
     return(
       <ThemeProvider
         breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+        minBreakpoint="xxs"
       >
         <div className="App">
           {/* <h1>Hi</h1> */}
