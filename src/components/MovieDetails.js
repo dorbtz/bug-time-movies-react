@@ -15,6 +15,7 @@ import GetComments from './getComments'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import RangeSlider from 'react-bootstrap-range-slider';
+import {Comments} from './Comment';
 
 
 const MovieDetails = () => {
@@ -99,7 +100,7 @@ const MovieDetails = () => {
     <Popover id="popover-basic">
         <Popover.Header as="h3">Rate {movie.title}</Popover.Header>
         <Popover.Body>
-            <RangeSlider
+        <RangeSlider
                 value={rate}
                 onChange={changeEvent => setRate(changeEvent.target.value)}
             />
@@ -203,7 +204,8 @@ return (
             <hr></hr>
             <section className="comments">
                 <h3>People comment:</h3>
-                    <GetComments key={id} id={id} />
+                    {/* <GetComments key={id} id={id} /> */}
+                    <Comments />
             </section>
             <hr></hr>
             <section className="related">
