@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, MOVIE_COMMENTS_URL, COMMENT_URL, RATE_MOVIE_URL} from './request_utils';
+import React, {useState, useEffect, useReducer} from 'react';
+import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, COMMENT_URL, RATE_MOVIE_URL} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
-import {Row, Col, Button, Form, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
+import {Row, Col, Form, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
 import GetRate from './getRate';
 import { Link } from "react-router-dom" ;
 import moment from "moment"
@@ -15,35 +15,51 @@ import GetComments from './getComments'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import RangeSlider from 'react-bootstrap-range-slider';
-import {Comments} from './Comment';
-
+import axiosInstance from '../axios';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import SendIcon from '@mui/icons-material/Send';
+import Button from '@mui/material/Button';
 
 const MovieDetails = () => {
 
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
     const [related, setRelated] = useState([])
-    // const [comment, setComment] = useState([])
+    const [data, setData] = useState({
+        movie: movie.id,
+        content: "",
+    })
     const [rate, setRate] = useState(0)
     const {id} = useParams()
+    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
     useEffect(() =>
     {
-        console.log(`${MOVIE_DETAIL_URL}${id}`)
         axios.get(`${MOVIE_DETAIL_URL}${id}`)
             .then(res => setMovie(res.data))
-    }, [])
+    }, [ignored])
 
-    
-    useEffect(() => {
-        getData();
-    }, [])
 
-    const getData = () => {
-        axios.get(MOVIES_URL).then((res) => 
-        {
-        setRelated(res.data.data)}
-        );
+    function submit(e) {
+        e.preventDefault();
+        let id = movie.id
+        axiosInstance
+        .post(COMMENT_URL, {
+            movie: id,
+            content: data.content,
+        })
+        forceUpdate()
     }
+
+
+    function handle(e){
+        const newdata = {...data}
+        newdata[e.target.id] = e.target.value
+        setData(newdata)
+        console.log(newdata)
+    }
+
 
     const deleteMovie = () => {
         console.log(`${MOVIE_DETAIL_URL}${id}`)
@@ -54,26 +70,25 @@ const MovieDetails = () => {
 
 
     const handleEditSave = () => {
-        console.log('called handleSaveNew')
-        const editedmovie = {title: setMovie.movie.title,
-            description: setMovie.movie.description,
-            image: setMovie.movie.image,
-            director: setMovie.movie.director,
-            category: setMovie.movie.category,
-            language: setMovie.movie.language,
-            status: setMovie.movie.status,
-            cast: setMovie.movie.cast,
-            year_of_production: setMovie.movie.year_of_production,
-            views_count: setMovie.movie.views_count,
-            movie_trailer: setMovie.movie.movie_trailer,
+        console.log('called handle Edit Save')
+        const editedmovie = {title: movie.title,
+            description: movie.description,
+            image: movie.image,
+            director: movie.director,
+            category: movie.category,
+            language: movie.language,
+            status: movie.status,
+            cast: movie.cast,
+            year_of_production: movie.year_of_production,
+            views_count: movie.views_count,
+            movie_trailer: movie.movie_trailer,
         }
         axios.put(`${MOVIE_DETAIL_URL}${id}`,
-            editedmovie, 
-            getHeader()
+            editedmovie, getHeader()
         )
         .then(response => {
             if (response.status === 201) {
-                getData();
+                forceUpdate();
             }
         })
         setShow({showModal: false})
@@ -90,20 +105,29 @@ const MovieDetails = () => {
 
     const handleRate = () => {
         console.log()
-        axios.post(RATE_MOVIE_URL, {
+        axiosInstance
+        .post(RATE_MOVIE_URL, {
             movie: movie.id,
             rating: rate
         })
+        forceUpdate()
     }
+
+
 
     const popover = (
     <Popover id="popover-basic">
         <Popover.Header as="h3">Rate {movie.title}</Popover.Header>
         <Popover.Body>
         <RangeSlider
+                min={1}
+                max={10}
                 value={rate}
                 onChange={changeEvent => setRate(changeEvent.target.value)}
             />
+
+        <Button onClick={handleRate}>Save</Button>
+
         </Popover.Body>
     </Popover>
     );
@@ -139,19 +163,6 @@ const MovieDetails = () => {
         )
     })
 
-    // const MovieComments = comments.map(comment => {
-    //     return(
-    //         <Row>
-    //             <Col>
-    //                 <p>{comment.sender_username}: {comment.content}
-    //                 <br></br>
-    //                 <hr></hr>
-    //                 {comment.created_at}
-    //                 </p>
-    //             </Col>
-    //         </Row>
-    //     )
-    // })
     
 return (
     <div>
@@ -182,9 +193,9 @@ return (
             <section className="movie">
                 <Row>
                     <Col xs={{ order: '2' }}>
-                        <h5>Rating: <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+                        <h5>Rating: <GetRate id={id} /> | <OverlayTrigger trigger="click" placement="right" overlay={popover}>
                                         <Button>Rate this movie</Button>
-                                    </OverlayTrigger> | <GetRate id={id} />
+                                    </OverlayTrigger>
                         </h5>
                     </Col>
                 </Row>
@@ -203,9 +214,19 @@ return (
             </section> */}
             <hr></hr>
             <section className="comments">
-                <h3>People comment:</h3>
-                    {/* <GetComments key={id} id={id} /> */}
-                    <Comments />
+                <h3>Recent comments:</h3>
+                <GetComments key={id} id={id} />
+                    <Box
+                        sx={{
+                            width: 450,
+                            maxWidth: '100%',
+                        }}
+                        >
+                        <TextField fullWidth label="Comment" id="content" value={data.content} onChange={(e) => handle(e)}/>
+                        <Button onClick={(e) => submit(e)} variant="contained" endIcon={<SendIcon />}>
+                                Send
+                        </Button>
+                    </Box>
             </section>
             <hr></hr>
             <section className="related">

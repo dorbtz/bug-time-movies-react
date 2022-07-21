@@ -1,5 +1,5 @@
 import axiosInstance from "../axios";
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useReducer} from "react"
 import { FaStar } from "react-icons/fa";
 
 const GetRate = (props) => {
@@ -11,10 +11,9 @@ const GetRate = (props) => {
           .then(res => setRate(res.data.avg_rate))
     
       }, [])
-
-
+    
     return(
-        <span className="movie_info float-right"> {rate}/10 <FaStar style={{color:"gold"}}/></span>
+      <span className="movie_info float-right"> {rate}/10 <FaStar style={{color:"gold"}}/></span>
 )
 }
 

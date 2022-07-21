@@ -1,91 +1,75 @@
-import axios from 'axios';
-import React, {useState, useEffect} from "react"
-import {MOVIE_COMMENTS_URL} from './request_utils'
-import { Button, Comment, Form } from 'semantic-ui-react'
-import cn from "classnames";
-import { AiOutlineLike } from "react-icons/ai";
+import axiosInstance from "../axios";
+import React, {useState, useEffect, useReducer} from "react"
+import moment from "moment"
+
+// comment template
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 
 
 const GetComments = (props) => {
 
     const [comment, setComment] = useState([])
-
-    const [liked, setLiked] = useState(null);
-    const [clicked, setClicked] = useState(false);
+    // const [liked, setLiked] = useState(null);
+    // const [clicked, setClicked] = useState(false);
 
     useEffect(() => {
-        let data;
-        axios.get(`${MOVIE_COMMENTS_URL}${props.id}`)
-        .then(res => setComment(res.data))
-        console.log(data)
+        axiosInstance
+            .get(`/all_comments/${props.id}`)
+            .then((res) => setComment(res.data))
+        // console.log(data)
 
     }, [])
 
 
+    let displayComments = []
+    if (comment) {
+        displayComments = comment.map((comment) => {
+            const { sender_username, content, created_at } = comment;
+
+            return(
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background' }}>
+                <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                        <Avatar alt="Remy Sharp" src="https://www.citypng.com/public/uploads/preview/png-round-blue-contact-user-profile-icon-11639786938sxvzj5ogua.png" />
+                    </ListItemAvatar>
+                    <ListItemText
+                    primary={sender_username}
+                    secondary={
+                        <React.Fragment>
+                        <Typography
+                            sx={{ display: 'inline' }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                        >
+                            {content}
+                            </Typography>
+                            <br></br>
+                            {moment(created_at).format('YY/MM/DD HH:mm')}
+                        </React.Fragment>
+                    }
+                    />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+                </List>
+            )
+        })
+    }
+
     return(
-        <Comment.Group>
+        <>
+        {comment ? displayComments : "no comments yet"}
+        {comment && comment.content}
 
-            <Comment>
-            {/* <Comment.Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' /> */}
-            <Comment.Content>
-                <Comment.Author as='a'>user:{comment.sender_username}</Comment.Author>
-                <Comment.Metadata>
-                <div>{comment.created_at} date created</div>
-                </Comment.Metadata>
-                <Comment.Text>
-                <p>said: {comment.content}</p>
-                </Comment.Text>
-                {/* <Comment.Actions>
-                <Comment.Action onClick={() => {
-                                setLiked(!liked);
-                                setClicked(true);
-                            }}
-                            onAnimationEnd={() => setClicked(false)}
-                            className={cn("like-button-wrapper", {
-                                liked,
-                                clicked,
-                            })}>
-                                <div className="like-button">
-                                    <AiOutlineLike />
-                                    <span>Like</span>
-                                    <span className={cn("suffix", { liked })}>d</span>
-                                </div>
-                </Comment.Action>
-                </Comment.Actions> */}
-            </Comment.Content>
-            </Comment>
+        <br></br>
 
-            <Form reply>
-            <Form.TextArea />
-            <Button content='Post Comment' labelPosition='cenleftter' icon='edit' primary />
-            </Form>
-        </Comment.Group>
-
-
-        // <List className={classes.root}>
-        // <ListItem alignItems="flex-start">
-        //     <ListItemAvatar>
-        //         <Avatar alt="default" src="https://www.citypng.com/public/uploads/preview/png-round-blue-contact-user-profile-icon-11639786938sxvzj5ogua.png" />
-        //     </ListItemAvatar>
-        //     <ListItemText
-        //     primary={comment.sender_username}
-        //     secondary={
-        //         <React.Fragment>
-        //         <Typography
-        //             component="span"
-        //             variant="body2"
-        //             className={classes.inline}
-        //             color="textPrimary"
-        //         >
-        //             this is comment for example:
-        //             {comment.content}
-        //         </Typography>
-        //         </React.Fragment>
-        //     }
-        //     />
-        // </ListItem>
-        // <Divider variant="inset" component="li" />  
-        // </List>
+        </>
 )
 }
 

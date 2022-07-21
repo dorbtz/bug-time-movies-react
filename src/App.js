@@ -71,12 +71,9 @@ class App extends React.Component {
               <Route path="/users/profile" element={<UserProfile />} />
               <Route path="/signup" element={<CreateUser />} />
               <Route path="/details/:id" element={<MovieDetails />} />
-              {/* <Route path="/youtube/" element={<YoutubeEmbed />} /> */}
               <Route path="/add" element={<AddMovie />} />
-              {/* <Route path="/pages" element={<Paginate />} /> */}
-              {/* <Route path="/card" element={<MovieCard />} /> */}
-              {/* <Route path="/newhome" element={<NewHome />} /> */}
-              {/* <Route path="/mtest" element={<Movies />} /> */}
+
+              // Genre Routes
               <Route path="/movies/action" element={<Action />} />
               <Route path="/movies/adventure" element={<Adventure />} />
               <Route path="/movies/animated" element={<Animated />} />
@@ -90,6 +87,7 @@ class App extends React.Component {
               <Route path="/movies/science-fiction" element={<ScienceFiction />} />
               <Route path="/movies/western" element={<Western />} />
 
+              /language routes
               <Route path="/movies/en" element={<English />} />
               <Route path="/movies/he" element={<Hebrew />} />
               <Route path="/movies/es" element={<Espanol />} />
