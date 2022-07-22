@@ -11,7 +11,6 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { MdLanguage } from "react-icons/md";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
-import { useHistory } from 'react-router-dom';
 
 export class Header extends React.Component {
 
@@ -67,7 +66,6 @@ export class Header extends React.Component {
       })
       .then(result => {
           window.localStorage.setItem("Token", result.data.token)
-          console.log(result)
           this.props.navigate('/')
       })
       .catch(error => window.alert(error))

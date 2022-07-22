@@ -22,6 +22,7 @@ export class AddMovie extends React.Component {
       title: "",
       description: "",
       image: "",
+      banner: "",
       director: "",
       category: "",
       language: "",
@@ -73,6 +74,7 @@ export class AddMovie extends React.Component {
         {title: this.state.title,
           description: this.state.description,
           image: this.state.image,
+          banner: this.state.banner,
           director: this.state.director,
           category: this.state.category,
           language: this.state.language,
@@ -135,13 +137,33 @@ export class AddMovie extends React.Component {
                                 </Form.Text>
                             </Form.Group>
                     
-                            <Form.Group controlId="formFile" className="mb-2">
+                            <Form.Group className="mb-3">
+                                <Form.Label>Poster</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="text" placeholder="Enter Movie's Poster" 
+                                        value={this.state.image}
+                                        onChange={(event) => this.setState({image: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Banner</Form.Label>
+                                <Form.Text>
+                                    <Form.Control 
+                                        type="text" placeholder="Enter Movie's Banner" 
+                                        value={this.state.banner}
+                                        onChange={(event) => this.setState({banner: event.target.value})}/>
+                                </Form.Text>
+                            </Form.Group>
+
+                            {/* <Form.Group controlId="formFile" className="mb-2">
                                 <Form.Label>Image/Poster</Form.Label>
                                 <Form.Control type="file"
                                   name="file"
                                   value={this.state.image} onChange={(event) => this.setState({image: event.target.value})}
                                   />
-                            </Form.Group>
+                            </Form.Group> */}
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Director</Form.Label>
@@ -162,12 +184,6 @@ export class AddMovie extends React.Component {
                                         onChange={(event) => this.setState({cast: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
-
-                            {/* <Form.Group controlId="formFile" className="mb-3">
-                                <Form.Label>Banner</Form.Label>
-                                <Form.Control type="file" size='sm'
-                                value={this.state.movies.Banner}/>
-                            </Form.Group> */}
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Description</Form.Label>
