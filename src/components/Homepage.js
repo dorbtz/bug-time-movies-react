@@ -98,7 +98,7 @@ const Homepage = () => {
 
         return(
         
-            <Carousel.Item interval={2500} key={filteredMovie.id}>
+            <Carousel.Item interval={2800} key={filteredMovie.id}>
                             <img style={{
                                 display: "block",
                                 height: "450px",
