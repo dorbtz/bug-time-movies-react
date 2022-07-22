@@ -57,12 +57,10 @@ const MovieDetails = () => {
         const newdata = {...data}
         newdata[e.target.id] = e.target.value
         setData(newdata)
-        console.log(newdata)
     }
 
 
     const deleteMovie = () => {
-        console.log(`${MOVIE_DETAIL_URL}${id}`)
         axios.delete(`${MOVIE_DETAIL_URL}${id}`, getHeader())
             .then(res => setMovie(res.data))
             .then(window.location.href="/")
@@ -99,12 +97,10 @@ const MovieDetails = () => {
     }
 
     const handleEditOpen = () => {
-        console.log('called handleEditOpen')
         setShow({showModal: true})
     }
 
     const handleRate = () => {
-        console.log()
         axiosInstance
         .post(RATE_MOVIE_URL, {
             movie: movie.id,
