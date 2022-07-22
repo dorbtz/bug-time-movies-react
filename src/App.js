@@ -72,8 +72,6 @@ class App extends React.Component {
               <Route path="/signup" element={<CreateUser />} />
               <Route path="/details/:id" element={<MovieDetails />} />
               <Route path="/add" element={<AddMovie />} />
-
-              // Genre Routes
               <Route path="/movies/action" element={<Action />} />
               <Route path="/movies/adventure" element={<Adventure />} />
               <Route path="/movies/animated" element={<Animated />} />

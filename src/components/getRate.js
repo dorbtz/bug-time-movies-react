@@ -1,5 +1,5 @@
 import axiosInstance from "../axios";
-import React, {useState, useEffect, useReducer} from "react"
+import React, {useState, useEffect} from "react"
 import { FaStar } from "react-icons/fa";
 
 const GetRate = (props) => {

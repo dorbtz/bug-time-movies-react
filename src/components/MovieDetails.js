@@ -40,6 +40,12 @@ const MovieDetails = () => {
             .then(res => setMovie(res.data))
     }, [ignored])
 
+    useEffect(() =>
+    {
+        axios.get(MOVIES_URL)
+            .then(res => setRelated(res.data))
+    }, [])
+
 
     function submit(e) {
         e.preventDefault();
@@ -131,7 +137,7 @@ const MovieDetails = () => {
     
     
 
-    const relatedMovies = related.filter(related => related.category === movie.category).map(filteredMovie => {
+    const relatedMovies = related.filter(related => related.id !== movie.id && related.category === movie.category).map(filteredMovie => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
         return(
             <Row>
