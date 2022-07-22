@@ -30,12 +30,12 @@ const GetComments = (props) => {
     let displayComments = []
     if (comment) {
         displayComments = comment.map((comment) => {
-            const { sender_username, content, created_at } = comment;
+            const { sender_username, content, created_at, id, sender } = comment;
 
             return(
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background' }}>
-                <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background' }} key={id} id={sender}>
+                <ListItem alignItems="flex-start" key={id} id={sender}>
+                    <ListItemAvatar key={id} id={sender}>
                         <Avatar alt="Remy Sharp" src="https://www.citypng.com/public/uploads/preview/png-round-blue-contact-user-profile-icon-11639786938sxvzj5ogua.png" />
                     </ListItemAvatar>
                     <ListItemText

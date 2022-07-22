@@ -37,14 +37,15 @@ const Homepage = () => {
 
         return(
                     <div className="card movie_card" key={filteredMovie.id}>
-                        <img src={filteredMovie.image} className="card-img-top" alt="..." />
+                        <img src={filteredMovie.image} className="card-img-top" alt={filteredMovie.slug + "-img"} />
                         <div className="card-body">
                         <Link to={filteredMovie_url}>            
 
-                        <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
+                        <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="More Details">
                         </i>
                         </Link>
                         <h5 className="card-title">{filteredMovie.title}</h5><br></br>
+                        <hr></hr>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
                         <GetRate id={filteredMovie.id} />
                         </div>
@@ -56,14 +57,15 @@ const Homepage = () => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
         return(
                     <div className="card movie_card" key={filteredMovie.id}>
-                        <img src={filteredMovie.image} className="card-img-top" alt="..." />
+                        <img src={filteredMovie.image} className="card-img-top" alt={filteredMovie.slug + "-img"} />
                         <div className="card-body">
                         <Link to={filteredMovie_url}>            
 
-                        <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
+                        <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="More Details">
                         </i>
                         </Link>
                         <h5 className="card-title">{filteredMovie.title}</h5><br></br>
+                        <hr></hr>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
                         <GetRate id={filteredMovie.id} />
                         </div>
@@ -76,14 +78,15 @@ const Homepage = () => {
         return(
         
                     <div className="card movie_card" key={filteredMovie.id}>
-                        <img src={filteredMovie.image} className="card-img-top" alt="..." />
+                        <img src={filteredMovie.image} className="card-img-top" alt={filteredMovie.slug + "-img"} />
                         <div className="card-body">
                         <Link to={filteredMovie_url}>            
 
-                        <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
+                        <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="More Details">
                         </i>
                         </Link>
                         <h5 className="card-title">{filteredMovie.title}</h5><br></br>
+                        <hr></hr>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
                         <GetRate id={filteredMovie.id} />
                         </div>
@@ -95,19 +98,19 @@ const Homepage = () => {
 
         return(
         
-            <Carousel.Item interval={1000} key={filteredMovie.id}>
+            <Carousel.Item interval={2500} key={filteredMovie.id}>
                             <img style={{
                                 display: "block",
-                                height: "auto",
-                                maxWidth: "100%"
+                                height: "450px",
+                                maxwidth: "100%",
                             }}
                                 className="d-block w-100 card-image"
                                 src={filteredMovie.banner}
                                 alt={filteredMovie.title}
                             />
                             <Carousel.Caption>
-                                <h5 className={'caption'}>{filteredMovie.title}</h5>
-                                <p className={'caption'}>{filteredMovie.description}</p>
+                                {/* <h5 className={'caption'}>{filteredMovie.title}</h5> */}
+                                {/* <p className={'caption'}>{filteredMovie.description}</p> */}
                             </Carousel.Caption>
             </Carousel.Item>
         )
@@ -119,7 +122,7 @@ return (
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous" />
-        <style dangerouslySetInnerHTML={{__html: "{font-family: 'Poppins', sans-serif; }.movie_card{width: 12rem; margin:5px; border-radius: 5px; box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);}.movie_card img{border-top-left-radius: 10px;border-top-right-radius: 10px;height: 14rem;}.movie_info{color: #5e5c5c; }.movie_info i{font-size: 20px;}.card-title{width: 82%;height: 5rem;}.play_button{background-color: #ff3d49;   position: absolute;width: 60px;height: 60px;border-radius: 50%;right: 20px;bottom: 111px;font-size: 27px;padding-left: 21px;padding-top: 16px;color: #FFFFFF;cursor: pointer;}" }} />
+        <style dangerouslySetInnerHTML={{__html: "{font-family: 'Poppins', sans-serif; }.movie_card{width: 15rem; margin:5px; border-radius: 10px; box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);}.movie_card img{border-top-left-radius: 8px;border-top-right-radius: 8px;height: 18rem;}.movie_info{color: #5e5c5c; }.movie_info i{font-size: 20px;}.card-title{width: 72%;height: 5rem;}.play_button{background-color: #ff3d49;   position: absolute;width: 60px;height: 60px;border-radius: 50%;right: 15px;bottom: 180px;font-size: 27px;padding-left: 21px;padding-top: 16px;color: #FFFFFF;cursor: pointer;}" }} />
 
         <main className="content">
 
@@ -166,7 +169,7 @@ return (
                 </div>
             </section>
 
-            <Container style={{alignItems: "center", height: '60%', width: '70%'}}>
+            <Container style={{alignItems: "center", height: '100%', width: '100%'}}>
                     <h3 style={{textAlign: "center"}}>Featured Movies</h3>
                     <Carousel variant={"dark"} fade={true} className={"center-carousal"}>
                         {featuredMovies}
