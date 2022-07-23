@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 // import Moviecard from './Moviecard';
 import {MOVIES_URL} from './request_utils';
-import GetRate from './getRate';
 import { Link } from "react-router-dom" ;
+import GetRating from './getRating';
+import moment from "moment"
 
 
 const ListMovies = () => {
@@ -33,8 +34,8 @@ const ListMovies = () => {
                   </Link>
                   <h5 className="card-title">{movie.title}</h5><br></br>
                   <hr></hr>
-                  <span className="movie_info">{movie.year_of_production}</span>
-                  <GetRate id={movie.id} />
+                  <span className="movie_info">{moment(movie.year_of_production).format('YYYY/MM')}</span>
+                  <GetRating key={movie.id} id={movie.id} />
                 </div>
               </div>
         )

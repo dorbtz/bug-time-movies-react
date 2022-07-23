@@ -1,24 +1,18 @@
 import React, {useState, useEffect, useReducer} from 'react';
-import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, COMMENT_URL, RATE_MOVIE_URL} from './request_utils';
+import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
 import {Row, Col, Form, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
 import GetRate from './getRate';
 import { Link } from "react-router-dom" ;
+import GetRating from './getRating';
 import moment from "moment"
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import {FaCheckCircle} from 'react-icons/fa';
 import GetComments from './getComments'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Popover from 'react-bootstrap/Popover';
-import RangeSlider from 'react-bootstrap-range-slider';
-import axiosInstance from '../axios';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 
 const MovieDetails = () => {
@@ -26,11 +20,6 @@ const MovieDetails = () => {
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
     const [related, setRelated] = useState([])
-    const [data, setData] = useState({
-        movie: movie.id,
-        content: "",
-    })
-    const [rate, setRate] = useState(0)
     const {id} = useParams()
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -38,33 +27,13 @@ const MovieDetails = () => {
     {
         axios.get(`${MOVIE_DETAIL_URL}${id}`)
             .then(res => setMovie(res.data))
-    }, [ignored])
+    }, [id])
 
     useEffect(() =>
     {
         axios.get(MOVIES_URL)
-            .then(res => setRelated(res.data))
-    }, [])
-
-
-    function submit(e) {
-        e.preventDefault();
-        let id = movie.id
-        axiosInstance
-        .post(COMMENT_URL, {
-            movie: id,
-            content: data.content,
-        })
-        forceUpdate()
-    }
-
-
-    function handle(e){
-        const newdata = {...data}
-        newdata[e.target.id] = e.target.value
-        setData(newdata)
-    }
-
+            .then(res => setRelated(res.data.data))
+    }, [ignored])
 
     const deleteMovie = () => {
         axios.delete(`${MOVIE_DETAIL_URL}${id}`, getHeader())
@@ -105,42 +74,13 @@ const MovieDetails = () => {
     const handleEditOpen = () => {
         setShow({showModal: true})
     }
-
-    const handleRate = () => {
-        axiosInstance
-        .post(RATE_MOVIE_URL, {
-            movie: movie.id,
-            rating: rate
-        })
-        forceUpdate()
-    }
-
-
-
-    const popover = (
-    <Popover id="popover-basic">
-        <Popover.Header as="h3">Rate {movie.title}</Popover.Header>
-        <Popover.Body>
-        <RangeSlider
-                min={1}
-                max={10}
-                value={rate}
-                onChange={changeEvent => setRate(changeEvent.target.value)}
-            />
-
-        <Button onClick={handleRate}>Save</Button>
-
-        </Popover.Body>
-    </Popover>
-    );
-
     
     
 
     const relatedMovies = related.filter(related => related.id !== movie.id && related.category === movie.category).map(filteredMovie => {
         const filteredMovie_url = `/details/${filteredMovie.id}`
         return(
-            <Row>
+            <Row key={filteredMovie.id}>
                 <Col>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -150,14 +90,15 @@ const MovieDetails = () => {
                     <div className="card movie_card" key={filteredMovie.id}>
                         <img src={filteredMovie.image} className="card-img-top" alt="..." />
                         <div className="card-body">
-                        <Link to={filteredMovie_url}>            
+                        <Link to={filteredMovie_url}>          
 
                         <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
                         </i>
                         </Link>
-                        <h5 className="card-title">{filteredMovie.title}</h5><br></br><br></br>
-                        <span className="movie_info">{filteredMovie.year_of_production}</span>
-                        <GetRate key={filteredMovie.id} id={filteredMovie.id} />
+                        <h5 className="card-title">{filteredMovie.title}</h5><br></br>
+                        <hr></hr>
+                        <span className="movie_info">{moment(movie.year_of_production).format('YYYY/MM')}</span>
+                        <GetRating key={filteredMovie.id} id={filteredMovie.id} />
                         </div>
                     </div>                
                 </Col>
@@ -167,8 +108,9 @@ const MovieDetails = () => {
 
     
 return (
-    <div>
+    <div key={movie.id}>
         <main className="content">
+            {window.localStorage.getItem(["IsAdmin"]) ?
             <div className="btn btn">
             <h1 className="m-3"> 
             <span>
@@ -184,6 +126,7 @@ return (
             </h1>
              {/* <Button variant="info" onClick={() => editMovie(id)}> Edit <FiEdit/> </Button> */}
             </div>
+            : "hi"}
         <div className="single">
             <section className="trailer">
             <h5>{movie.title} ({moment(movie.year_of_production).format('YYYY')})</h5>
@@ -195,9 +138,7 @@ return (
             <section className="movie">
                 <Row>
                     <Col xs={{ order: '2' }}>
-                        <h5>Rating: <GetRate id={id} /> | <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-                                        <Button>Rate this movie</Button>
-                                    </OverlayTrigger>
+                        <h5>Rating: <GetRate id={id} />
                         </h5>
                     </Col>
                 </Row>
@@ -218,17 +159,6 @@ return (
             <section className="comments">
                 <h3>Recent comments:</h3>
                 <GetComments key={id} id={id} />
-                    <Box
-                        sx={{
-                            width: 450,
-                            maxWidth: '100%',
-                        }}
-                        >
-                        <TextField fullWidth label="Comment" id="content" value={data.content} onChange={(e) => handle(e)}/>
-                        <Button onClick={(e) => submit(e)} variant="contained" endIcon={<SendIcon />}>
-                                Send
-                        </Button>
-                    </Box>
             </section>
             <hr></hr>
             <section className="related">

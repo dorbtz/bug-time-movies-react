@@ -2,12 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import {useState, useEffect} from 'react'
 import { MOVIES_URL } from './request_utils';
-import GetRate from './getRate';
 import { Link } from "react-router-dom" ;
 import {Container, Carousel} from 'react-bootstrap'
 // import {Carousel, Container} from 'react-bootstrap'
 import moment from 'moment';
-// import { BASE_PATH, CURRENT_USER} from './request_utils'
+import GetRating from './getRating';
 
 
 const Homepage = () => {
@@ -23,6 +22,7 @@ const Homepage = () => {
     useEffect(() => {
         getData();
     }, [])
+
     
     const getData = () => {
         axios.get(MOVIES_URL).then((res) => 
@@ -47,7 +47,7 @@ const Homepage = () => {
                         <h5 className="card-title">{filteredMovie.title}</h5><br></br>
                         <hr></hr>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
-                        <GetRate id={filteredMovie.id} />
+                        <GetRating key={filteredMovie.id} id={filteredMovie.id} />
                         </div>
                     </div>
         )
@@ -67,7 +67,7 @@ const Homepage = () => {
                         <h5 className="card-title">{filteredMovie.title}</h5><br></br>
                         <hr></hr>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
-                        <GetRate id={filteredMovie.id} />
+                        <GetRating key={filteredMovie.id} id={filteredMovie.id} />
                         </div>
                     </div>                
         )
@@ -88,7 +88,7 @@ const Homepage = () => {
                         <h5 className="card-title">{filteredMovie.title}</h5><br></br>
                         <hr></hr>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
-                        <GetRate id={filteredMovie.id} />
+                        <GetRating key={filteredMovie.id} id={filteredMovie.id} />
                         </div>
                     </div>                
         )

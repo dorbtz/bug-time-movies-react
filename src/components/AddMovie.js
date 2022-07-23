@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 // import CardGroup from 'react-bootstrap/CardGroup'
-import { Button, Form, Modal, ModalBody, ModalFooter, FormControl, Container } from 'react-bootstrap';
+import { Button, Form, Modal, ModalBody, ModalFooter, Container } from 'react-bootstrap';
 // import {GENRES_URL} from './request_utils'
 import {ADD_MOVIES_URL, MOVIES_URL} from './request_utils'
 import {toast} from 'react-toastify'

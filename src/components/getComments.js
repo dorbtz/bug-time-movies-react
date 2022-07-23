@@ -1,6 +1,7 @@
 import axiosInstance from "../axios";
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useReducer} from "react"
 import moment from "moment"
+import {COMMENT_URL} from "./request_utils"
 
 // comment template
 import List from '@mui/material/List';
@@ -10,11 +11,21 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import SendIcon from '@mui/icons-material/Send';
+import Button from '@mui/material/Button';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 const GetComments = (props) => {
 
     const [comment, setComment] = useState([])
+    const [data, setData] = useState({
+        movie: props.id,
+        content: "",
+    })
+    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
     // const [liked, setLiked] = useState(null);
     // const [clicked, setClicked] = useState(false);
 
@@ -24,7 +35,25 @@ const GetComments = (props) => {
             .then((res) => setComment(res.data))
         // console.log(data)
 
-    }, [])
+    }, [ignored])
+
+    function submit(e) {
+        e.preventDefault();
+        let id = props.id
+        axiosInstance
+        .post(COMMENT_URL, {
+            movie: id,
+            content: data.content,
+        })
+        forceUpdate()
+    }
+
+
+    function handle(e){
+        const newdata = {...data}
+        newdata[e.target.id] = e.target.value
+        setData(newdata)
+    }
 
 
     let displayComments = []
@@ -68,6 +97,27 @@ const GetComments = (props) => {
         {comment && comment.content}
 
         <br></br>
+
+        <Box
+                        sx={{
+                            width: 450,
+                            maxWidth: '100%',
+                        }}
+                        >
+                        <TextField fullWidth label="Comment" id="content" value={data.content} onChange={(e) => handle(e)}/>
+                        {window.localStorage.getItem(["token"]) ?
+                        <Button onClick={(e) => submit(e)} variant="contained" endIcon={<SendIcon />}>
+                                Send
+                        </Button>
+                        : 
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">You need to login for get Comment access</Tooltip>}>
+                            <span className="d-inline-block">
+                                <Button disabled style={{ pointerEvents: 'none' }} endIcon={<SendIcon />}>
+                                    Comments Disabled
+                                </Button>
+                            </span>
+                        </OverlayTrigger>}
+        </Box>
 
         </>
 )
