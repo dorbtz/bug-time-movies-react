@@ -141,7 +141,7 @@ export class AddMovie extends React.Component {
                                 <Form.Label>Poster</Form.Label>
                                 <Form.Text>
                                     <Form.Control 
-                                        type="text" placeholder="Enter Movie's Poster" 
+                                        type="url" placeholder="Enter Movie's Poster" 
                                         value={this.state.image}
                                         onChange={(event) => this.setState({image: event.target.value})}/>
                                 </Form.Text>
@@ -151,7 +151,7 @@ export class AddMovie extends React.Component {
                                 <Form.Label>Banner</Form.Label>
                                 <Form.Text>
                                     <Form.Control 
-                                        type="text" placeholder="Enter Movie's Banner" 
+                                        type="url" placeholder="Enter Movie's Banner" 
                                         value={this.state.banner}
                                         onChange={(event) => this.setState({banner: event.target.value})}/>
                                 </Form.Text>
@@ -216,7 +216,7 @@ export class AddMovie extends React.Component {
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Language</Form.Label>
-                                <Form.Select aria-label="Floating label select example" value={this.state.language} 
+                                <Form.Select aria-label="Language" value={this.state.language} 
                                   onChange={(event) => this.setState({language: event.target.value})}>
                                   <option value="english">ENGLISH</option>
                                   <option value="hebrew">HEBREW</option>
@@ -226,7 +226,8 @@ export class AddMovie extends React.Component {
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Status</Form.Label>
-                                <Form.Select aria-label="Floating label select example" value={this.state.status} onChange={(event) => this.setState({status: event.target.value})}>
+                                <Form.Select aria-label="Status" value={this.state.status} 
+                                  onChange={(event) => this.setState({status: event.target.value})}>
                                   <option value="recently-added">RECENTLY ADDED</option>
                                   <option value="most-watched">MOST WATCHED</option>
                                   <option value="top-rated">TOP RATED</option>

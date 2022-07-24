@@ -18,6 +18,7 @@ import {SignOut} from "./components/SignOut";
 import Homepage from "./components/Homepage";
 // import {SignUpItamar} from "./components/ItamarSignUp";
 import {Header} from "./components/FTHDER/Header";
+import Headerex from "./components/FTHDER/Headerex";
 import Copyright from "./components/FTHDER/Footer";
 // import {TestProf} from './components/testprof'
 import MovieDetails from "./components/MovieDetails";

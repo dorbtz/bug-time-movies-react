@@ -50,7 +50,6 @@ export const ScienceFiction = () => {
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
         <style dangerouslySetInnerHTML={{__html: "{font-family: 'Poppins', sans-serif; -webkit-user-select: none; -moz-user-select: -moz-none; -o-user-select: none; user-select: none;}img {  -webkit-user-drag: none;  -moz-user-drag: none;  -o-user-drag: none;  user-drag: none;}img {pointer-events: none;}.movie_card{padding: 0 !important;width: 20rem;margin:14px; border-radius: 10px;box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);}.movie_card img{border-top-left-radius: 8px;border-top-right-radius: 8px;height: 30rem;}.movie_info{color: #5e5c5c;}.movie_info i{font-size: 15px;}.card-title{width: 75%;height: 3.5rem;}.play_button{background-color: #ff3d49;   position: absolute;width: 60px;height: 60px;border-radius: 50%;right: 20px;bottom: 111px;font-size: 27px;padding-left: 21px;padding-top: 16px;color: #FFFFFF;cursor: pointer;}" }} />
 
-      Science-fiction
       <div className="recentslider">
         <div className="swiper-container">
           <div className="swiper-wrapper">
