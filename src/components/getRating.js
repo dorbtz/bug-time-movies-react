@@ -1,6 +1,5 @@
 import axiosInstance from "../axios";
 import React, {useState, useEffect} from "react"
-import { FaStar } from "react-icons/fa";
 
 
 const GetRating = (props) => {
@@ -16,7 +15,7 @@ const GetRating = (props) => {
     
     return(
     <span className="movie_info float-right">
-        {rate}/10 <FaStar style={{color:"gold"}}/>
+        {rate}/10 ⭐
     </span>
 )
 }

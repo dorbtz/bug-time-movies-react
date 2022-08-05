@@ -46,6 +46,7 @@ import {Western} from "./components/Genres/Western";
 import { Hebrew } from "./components/Languages/Hebrew";
 import { Espanol } from "./components/Languages/Espanol";
 import {English } from "./components/Languages/English";
+import SearchMovie from "./components/Search/SearchMovie";
 
 
 class App extends React.Component {
@@ -85,6 +86,7 @@ class App extends React.Component {
               <Route path="/movies/romance" element={<Romance />} />
               <Route path="/movies/science-fiction" element={<ScienceFiction />} />
               <Route path="/movies/western" element={<Western />} />
+              <Route path="/search/" element={<SearchMovie />} />
 
               /language routes
               <Route path="/movies/en" element={<English />} />

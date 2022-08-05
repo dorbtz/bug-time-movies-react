@@ -1,14 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 // import CardGroup from 'react-bootstrap/CardGroup'
-import { Button, Form, Modal, ModalBody, ModalFooter, Container } from 'react-bootstrap';
+import { Form, Modal, ModalBody, ModalFooter, Container } from 'react-bootstrap';
 // import {GENRES_URL} from './request_utils'
 import {ADD_MOVIES_URL, MOVIES_URL} from './request_utils'
 import {toast} from 'react-toastify'
 import {FaCheckCircle} from 'react-icons/fa'
-import {HiDocumentAdd} from 'react-icons/hi'
 import { getHeader } from './request_utils';
-
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 export class AddMovie extends React.Component {
 
@@ -31,7 +31,6 @@ export class AddMovie extends React.Component {
       views_count: 0,
       movie_trailer: "",
       slug: "",
-      searchTerm: "",
       totalResaults: 0,
       currentPage: 1,
     };
@@ -98,31 +97,29 @@ export class AddMovie extends React.Component {
     })
   }
 
-  nextPage = (pageNumber) => {
-    
-  }
+  
 
   render() {
     
     return(
       <div>
-      <div>
-        <Container>
-          <h1 className="m-3">
-            <span>
-                <Button className="m-3" onClick={this.handleAddNew.bind(this)}>
-                    Add Movie <HiDocumentAdd />
-                </Button>
-            </span>
-          </h1>
-        </Container>
-      </div>
+          <Button startIcon={"➕"}  color="primary" onClick={this.handleAddNew.bind(this)}
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                '& > *': {
+                m: 1,
+                },
+            }}
+          >
+            Add
+          </Button>
       <div>
         <Container>
         <Modal show={this.state.showModal} 
                     onHide={() => this.setState({showModal: false})}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add new movie</Modal.Title>
+                        <Modal.Title>Add Movie</Modal.Title>
                     </Modal.Header>
 
                     <ModalBody>
@@ -143,6 +140,7 @@ export class AddMovie extends React.Component {
                                     <Form.Control 
                                         type="url" placeholder="Enter Movie's Poster" 
                                         value={this.state.image}
+                                        // defaultValue={NO_POSTER_URL}
                                         onChange={(event) => this.setState({image: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -153,17 +151,10 @@ export class AddMovie extends React.Component {
                                     <Form.Control 
                                         type="url" placeholder="Enter Movie's Banner" 
                                         value={this.state.banner}
+                                        // defaultValue={NO_BANNER_URL}
                                         onChange={(event) => this.setState({banner: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
-
-                            {/* <Form.Group controlId="formFile" className="mb-2">
-                                <Form.Label>Image/Poster</Form.Label>
-                                <Form.Control type="file"
-                                  name="file"
-                                  value={this.state.image} onChange={(event) => this.setState({image: event.target.value})}
-                                  />
-                            </Form.Group> */}
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Director</Form.Label>

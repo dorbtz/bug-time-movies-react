@@ -1,7 +1,7 @@
 import axiosInstance from "../axios";
 import React, {useState, useEffect, useReducer} from "react"
 import moment from "moment"
-import {COMMENT_URL} from "./request_utils"
+import {COMMENT_URL, UPDATE_COMMENT_URL, CURRENT_USER} from "./request_utils"
 
 // comment template
 import List from '@mui/material/List';
@@ -17,15 +17,18 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 const GetComments = (props) => {
 
     const [comment, setComment] = useState([])
+    const [user, setUser] = useState([])
     const [data, setData] = useState({
         movie: props.id,
         content: "",
     })
-    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+    const [ignored, forceUpdate] = useReducer(x => x +- 1, 0);
     // const [liked, setLiked] = useState(null);
     // const [clicked, setClicked] = useState(false);
 
@@ -37,6 +40,12 @@ const GetComments = (props) => {
 
     }, [ignored])
 
+    useEffect (() => {
+        axiosInstance
+        .get(CURRENT_USER)
+        .then(res => setUser(res.data))
+    }, [])
+
     function submit(e) {
         e.preventDefault();
         let id = props.id
@@ -47,6 +56,23 @@ const GetComments = (props) => {
         })
         forceUpdate()
     }
+
+    const deleteComment = (id) => {
+        axiosInstance.delete(`${UPDATE_COMMENT_URL}${id}`)
+            .then(res => setComment(res.data))
+            forceUpdate()
+    }
+
+    // function update(e) {
+    //     e.preventDefault();
+    //     let id = props.id
+    //     axiosInstance
+    //     .put(UPDATE_COMMENT_URL, {
+    //         movie: id,
+    //         content: data.content,
+    //     })
+    //     forceUpdate()
+    // }
 
 
     function handle(e){
@@ -62,13 +88,22 @@ const GetComments = (props) => {
             const { sender_username, content, created_at, id, sender } = comment;
 
             return(
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background' }} key={id} id={sender}>
+                <List sx={{ width: '100%', maxWidth: 1100, bgcolor: 'background', maxHeight: 300, overflow: 'auto' }} key={id} id={sender}>
                 <ListItem alignItems="flex-start" key={id} id={sender}>
+                    {comment.sender_username === user.username ?
+                    <IconButton aria-label="delete" onClick={() => deleteComment(id)}>
+                        <DeleteIcon />
+                    </IconButton>
+                    : 
+                    <IconButton aria-label="delete" disabled color="primary">
+                        <DeleteIcon />
+                    </IconButton>
+                    }
                     <ListItemAvatar key={id} id={sender}>
                         <Avatar alt="Remy Sharp" src="https://www.citypng.com/public/uploads/preview/png-round-blue-contact-user-profile-icon-11639786938sxvzj5ogua.png" />
                     </ListItemAvatar>
                     <ListItemText
-                    primary={sender_username}
+                    primary={sender_username + ":"}
                     secondary={
                         <React.Fragment>
                         <Typography
@@ -80,7 +115,7 @@ const GetComments = (props) => {
                             {content}
                             </Typography>
                             <br></br>
-                            {moment(created_at).format('YY/MM/DD HH:mm')}
+                            {moment(created_at).format('DD/MM/YYYY HH:mm')}
                         </React.Fragment>
                     }
                     />
@@ -91,9 +126,10 @@ const GetComments = (props) => {
         })
     }
 
+
     return(
         <>
-        {comment ? displayComments : "no comments yet"}
+        {comment && displayComments}
         {comment && comment.content}
 
         <br></br>

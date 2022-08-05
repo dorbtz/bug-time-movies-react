@@ -1,7 +1,7 @@
 import axiosInstance from "../axios";
 import {RATE_MOVIE_URL} from './request_utils';
 import React, {useState, useEffect, useReducer} from "react"
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import RangeSlider from 'react-bootstrap-range-slider';
@@ -31,7 +31,7 @@ const GetRate = (props) => {
 
     const popover = (
       <Popover id="popover-basic">
-          <Popover.Header as="h3">Rate {props.title}</Popover.Header>
+          <Popover.Header as="h3">Rate {props.title} 🌟</Popover.Header>
           <Popover.Body>
           <RangeSlider
                   min={1}
@@ -64,7 +64,7 @@ const GetRate = (props) => {
             </span>
           </OverlayTrigger>}
         </span>
-        <span>{rate}/10 <FaStar style={{color:"gold"}}/></span>
+        <span>{rate}/10 ⭐</span>
       </div>
       
 )

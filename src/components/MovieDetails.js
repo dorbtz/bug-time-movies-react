@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useReducer} from 'react';
-import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader} from './request_utils';
+import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, CURRENT_USER} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
@@ -9,25 +9,39 @@ import { Link } from "react-router-dom" ;
 import GetRating from './getRating';
 import moment from "moment"
 import { IoRemoveCircleSharp } from "react-icons/io5";
-import { FiEdit } from "react-icons/fi";
 import { toast } from 'react-toastify';
-import {FaCheckCircle} from 'react-icons/fa';
+// import {FaCheckCircle} from 'react-icons/fa';
 import GetComments from './getComments'
 import Button from '@mui/material/Button';
+import { AddMovie } from './AddMovie';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Box from '@mui/material/Box';
+import EditIcon from '@mui/icons-material/Edit';
+import axiosInstance from '../axios';
+import UpdateMovie from './UpdateMovie';
 
 const MovieDetails = () => {
 
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
+    // const [data, setData] = useState([])
     const [related, setRelated] = useState([])
+    const [user, setUser] = useState([])
     const {id} = useParams()
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
+    useEffect (() => {
+        axiosInstance
+        .get(CURRENT_USER)
+        .then(res => setUser(res.data))
+    }, [])
 
     useEffect(() =>
     {
         axios.get(`${MOVIE_DETAIL_URL}${id}`)
             .then(res => setMovie(res.data))
     }, [id])
+
 
     useEffect(() =>
     {
@@ -39,40 +53,6 @@ const MovieDetails = () => {
         axios.delete(`${MOVIE_DETAIL_URL}${id}`, getHeader())
             .then(res => setMovie(res.data))
             .then(window.location.href="/")
-    }
-
-
-    const handleEditSave = () => {
-        console.log('called handle Edit Save')
-        const editedmovie = {title: movie.title,
-            description: movie.description,
-            image: movie.image,
-            director: movie.director,
-            category: movie.category,
-            language: movie.language,
-            status: movie.status,
-            cast: movie.cast,
-            year_of_production: movie.year_of_production,
-            views_count: movie.views_count,
-            movie_trailer: movie.movie_trailer,
-        }
-        axios.put(`${MOVIE_DETAIL_URL}${id}`,
-            editedmovie, getHeader()
-        )
-        .then(response => {
-            if (response.status === 201) {
-                forceUpdate();
-            }
-        })
-        setShow({showModal: false})
-        toast("The movie Updated Successfuly", {
-            theme: "green",
-            icon: <FaCheckCircle />
-        })
-    }
-
-    const handleEditOpen = () => {
-        setShow({showModal: true})
     }
     
     
@@ -107,26 +87,43 @@ const MovieDetails = () => {
     })
 
     
-return (
+    return (
     <div key={movie.id}>
         <main className="content">
-            {window.localStorage.getItem(["IsAdmin"]) ?
+            {window.localStorage.getItem(["token"]) && user.is_staff ?
             <div className="btn btn">
-            <h1 className="m-3"> 
-            <span>
-                <Button className="m-3" onClick={handleEditOpen}>
-                    Edit <FiEdit/>
-                </Button>
-            </span>
-            <span>
-                <Button variant="danger" onClick={() => deleteMovie(id)}>
-                    Delete <IoRemoveCircleSharp/>
-                </Button>
-            </span>
+            <h1 className="m-3">
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    '& > *': {
+                    m: 1,
+                    },
+                }}
+                >
+                <ButtonGroup variant="text" aria-label="text button group">
+                    <Button startIcon={"⛔"} color="error" onClick={() => deleteMovie(id)}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        '& > *': {
+                        m: 1,
+                        },
+                    }}
+                    >
+                        Delete
+                    </Button>
+
+                    <UpdateMovie />
+
+                    <AddMovie />
+                </ButtonGroup>
+            </Box>
             </h1>
-             {/* <Button variant="info" onClick={() => editMovie(id)}> Edit <FiEdit/> </Button> */}
             </div>
-            : "hi"}
+            : null}
         <div className="single">
             <section className="trailer">
             <h5>{movie.title} ({moment(movie.year_of_production).format('YYYY')})</h5>
@@ -138,7 +135,7 @@ return (
             <section className="movie">
                 <Row>
                     <Col xs={{ order: '2' }}>
-                        <h5>Rating: <GetRate id={id} />
+                        <h5>Rating: <GetRate id={id} title={movie.title}/>
                         </h5>
                     </Col>
                 </Row>
@@ -174,122 +171,6 @@ return (
             {/* {'{'}% endfor %{'}'} */}
             </section>
         </div>
-
-        <Modal show={show.showModal} 
-                    onHide={() => setShow({showModal: false})}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Edit {movie.slug}'s movie</Modal.Title>
-                    </Modal.Header>
-
-                    <ModalBody>
-                        <Form>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Title</Form.Label>
-                                <Form.Text>
-                                    <Form.Control 
-                                        type="text" placeholder="Enter Movie's Title" 
-                                        value={movie.title}
-                                        onChange={(event) => setMovie({title: event.target.value})}/>
-                                </Form.Text>
-                            </Form.Group>
-                    
-                            <Form.Group controlId="formFile" className="mb-3">
-                                <Form.Label>Image/Poster</Form.Label>
-                                <Form.Control type="file" 
-                                value={movie.Image} />
-                            </Form.Group>
-
-                            <Form.Group controlId="formFile" className="mb-3">
-                                <Form.Label>Banner</Form.Label>
-                                <Form.Control type="file" size='sm'
-                                value={movie.Banner}/>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Text>
-                                    <Form.Control 
-                                        type="text" placeholder="Enter Movie's description" 
-                                        value={movie.description}
-                                        onChange={(event) => setMovie({description: event.target.value})}/>
-                                </Form.Text>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Category</Form.Label>
-                                <Form.Select aria-label="Floating label select example" value={movie.category} onChange={(event) => setMovie({category: event.target.value})}>
-                                    <option value="none">Genres</option>
-                                    <option value="action">ACTION</option>
-                                    <option value="adventure">ADVENTURE</option>
-                                    <option value="animated">ANIMATED</option>
-                                    <option value="comedy">COMEDY</option>
-                                    <option value="crime">CRIME</option>
-                                    <option value="drama">DRAMA</option>
-                                    <option value="fantasy">FANTASY</option>
-                                    <option value="horror">HORROR</option>
-                                    <option value="historical">HISTORICAL</option>
-                                    <option value="romance">ROMANCE</option>
-                                    <option value="western">WESTERN</option>
-                                    <option value="science-fiction">SCIENCE FICTION</option>
-                                </Form.Select>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Language</Form.Label>
-                                <Form.Select aria-label="Floating label select example" value={movie.language} 
-                                onChange={(event) => setMovie({language: event.target.value})}>
-                                <option value="english">English</option>
-                                <option value="hebrew">Hebrew</option>
-                                <option value="english">Spanish</option>
-                                </Form.Select>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Status</Form.Label>
-                                <Form.Select aria-label="Floating label select example" value={movie.status} 
-                                onChange={(event) => setMovie({status: event.target.value})} >
-                                <option value="recently-added">Recently added</option>
-                                <option value="top-rated">Top rated</option>
-                                <option value="most-watched">Most watched</option>
-                                </Form.Select>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Cast</Form.Label>
-                                <Form.Text>
-                                    <Form.Control 
-                                        type="text" placeholder="Enter Movie's cast" 
-                                        value={movie.cast}
-                                        onChange={(event) => setMovie({cast: event.target.value})}/>
-                                </Form.Text>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Release Date</Form.Label>
-                                <Form.Text>
-                                    <Form.Control 
-                                        type="date" placeholder="Enter Movie's release date" 
-                                        value={movie.year_of_production}
-                                        onChange={(event) => setMovie({year_of_production: event.target.value})}/>
-                                </Form.Text>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Trailer Link</Form.Label>
-                                <Form.Text>
-                                    <Form.Control 
-                                        type="url" placeholder="Enter Trailer's URL" 
-                                        value={movie.movie_trailer}
-                                        onChange={(event) => setMovie({movie_trailer: event.target.value})}/>
-                                </Form.Text>
-                            </Form.Group>
-
-                        </Form>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button onClick={handleEditSave.bind(movie)}>Save</Button>
-                    </ModalFooter>
-        </Modal>
         </main>
     </div>
 )

@@ -4,9 +4,9 @@ import axios from 'axios'
 import { Container, NavDropdown, Nav, DropdownButton } from 'react-bootstrap';
 import movielogo from '../../movielogo.png'
 import { HiOutlineLogout, HiHome, HiFilm, HiOutlineLogin } from "react-icons/hi";
-import { FaUser, FaRegSmileWink} from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import {toast} from "react-toastify";
-import {BASE_PATH, TOKEN, CURRENT_USER, YEAR_URL } from "../request_utils";
+import {BASE_PATH, TOKEN, CURRENT_USER } from "../request_utils";
 import { GiArchiveRegister } from "react-icons/gi";
 import { MdLanguage } from "react-icons/md";
 import { IoCalendarNumberOutline } from "react-icons/io5";
@@ -166,16 +166,15 @@ export class Header extends React.Component {
             {window.localStorage.getItem(["token"]) ?
             <Navbar.Collapse className="justify-content">
               <Navbar.Text style={{marginLeft: 'auto'}}>
-              Welcome <FaRegSmileWink />: {this.state.first_name + ' ' + this.state.last_name}
+              Welcome: {this.state.first_name + ' ' + this.state.last_name} 😄
               </Navbar.Text>
 
               <NavDropdown title="Profile" id="navbarScrollingDropdown">
                   <NavDropdown.Item href='/users/profile' style={{marginLeft: 'auto'}}> <FaUser /> My Profile </NavDropdown.Item>
                   <NavDropdown.Item style={{marginLeft: 'auto'}} />
-                    {/* {window.localStorage.getItem(["token"]) ? */}
                     
                   <NavDropdown.Item title="Logout" onClick={this.handleSubmit}>
-                    Logout <HiOutlineLogout />
+                  <HiOutlineLogout /> Logout
                   </NavDropdown.Item>
                   
               </NavDropdown>
