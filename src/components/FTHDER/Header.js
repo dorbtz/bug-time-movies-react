@@ -73,17 +73,6 @@ export class Header extends React.Component {
       
   }
 
-  // async fetchMoviesByYear(year_of_production) {
-
-  //   let data;
-  //   axios.get(`${YEAR_URL} + ${year_of_production}`)
-  //   .then(res => {
-  //     data = res.data;
-  //     this.setState({movies: data});
-  //   }).catch(err => { })
-
-  // }
-
   render() {
       return(
       <Navbar >
@@ -132,7 +121,7 @@ export class Header extends React.Component {
                 </DropdownButton>
                 <NavDropdown.Divider />
               {/* </NavDropdown> */}
-                <DropdownButton
+                {/* <DropdownButton
                   // as={ButtonGroup}
                   key="year-end"
                   id={`dropdown-button-drop-end`}
@@ -142,7 +131,7 @@ export class Header extends React.Component {
                 >
                   <NavDropdown.Item href="/movies/year/2022">2022</NavDropdown.Item>
                 </DropdownButton>
-                <NavDropdown.Divider />
+                <NavDropdown.Divider /> */}
                 <DropdownButton
                   // as={ButtonGroup}
                   key="lang-end"
