@@ -8,7 +8,7 @@ import {toast} from 'react-toastify'
 import {FaCheckCircle} from 'react-icons/fa'
 import { getHeader } from './request_utils';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
+// import AddIcon from '@mui/icons-material/Add';
 
 export class AddMovie extends React.Component {
 
@@ -141,6 +141,7 @@ export class AddMovie extends React.Component {
                                         type="url" placeholder="Enter Movie's Poster" 
                                         value={this.state.image}
                                         // defaultValue={NO_POSTER_URL}
+                                        defaultValue
                                         onChange={(event) => this.setState({image: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -152,6 +153,7 @@ export class AddMovie extends React.Component {
                                         type="url" placeholder="Enter Movie's Banner" 
                                         value={this.state.banner}
                                         // defaultValue={NO_BANNER_URL}
+                                        defaultValue
                                         onChange={(event) => this.setState({banner: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>

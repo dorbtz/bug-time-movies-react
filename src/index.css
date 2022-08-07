@@ -120,3 +120,7 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
+
+.data-wrapper {
+  background:#904e95
+}

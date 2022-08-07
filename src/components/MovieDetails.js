@@ -1,34 +1,35 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useState, useEffect} from 'react';
 import {MOVIE_DETAIL_URL, MOVIES_URL, getHeader, CURRENT_USER} from './request_utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import YoutubeEmbed from './Youtube';
-import {Row, Col, Form, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
+import {Row, Col} from 'react-bootstrap'
 import GetRate from './getRate';
 import { Link } from "react-router-dom" ;
 import GetRating from './getRating';
 import moment from "moment"
-import { IoRemoveCircleSharp } from "react-icons/io5";
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
+// import { IoRemoveCircleSharp } from "react-icons/io5";
+// import { toast } from 'react-toastify';
 // import {FaCheckCircle} from 'react-icons/fa';
 import GetComments from './getComments'
 import Button from '@mui/material/Button';
 import { AddMovie } from './AddMovie';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
-import EditIcon from '@mui/icons-material/Edit';
+// import EditIcon from '@mui/icons-material/Edit';
 import axiosInstance from '../axios';
 import UpdateMovie from './UpdateMovie';
 
 const MovieDetails = () => {
 
-    const [show, setShow] = useState([])
+    // const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
     // const [data, setData] = useState([])
     const [related, setRelated] = useState([])
     const [user, setUser] = useState([])
     const {id} = useParams()
-    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+    // const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
     useEffect (() => {
         axiosInstance
@@ -47,12 +48,21 @@ const MovieDetails = () => {
     {
         axios.get(MOVIES_URL)
             .then(res => setRelated(res.data.data))
-    }, [ignored])
+    }, [])
 
     const deleteMovie = () => {
         axios.delete(`${MOVIE_DETAIL_URL}${id}`, getHeader())
-            .then(res => setMovie(res.data))
-            .then(window.location.href="/")
+            .then(res => setMovie(res.data), 
+            toast(`Movie deleted successfuly`, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                icon: "✅"
+            }))
     }
     
     
@@ -135,7 +145,7 @@ const MovieDetails = () => {
             <section className="movie">
                 <Row>
                     <Col xs={{ order: '2' }}>
-                        <h5>Rating: <GetRate id={id} title={movie.title}/>
+                        <h5>Rating: <GetRate key={movie.id} id={id} title={movie.title}/>
                         </h5>
                     </Col>
                 </Row>

@@ -38,7 +38,7 @@ const GetComments = (props) => {
             .then((res) => setComment(res.data))
         // console.log(data)
 
-    }, [ignored])
+    }, [ignored, props.id])
 
     useEffect (() => {
         axiosInstance
@@ -53,6 +53,10 @@ const GetComments = (props) => {
         .post(COMMENT_URL, {
             movie: id,
             content: data.content,
+        })
+        setData({
+            movie: props.id,
+            content: "",
         })
         forceUpdate()
     }
@@ -115,7 +119,7 @@ const GetComments = (props) => {
                             {content}
                             </Typography>
                             <br></br>
-                            {moment(created_at).format('DD/MM/YYYY HH:mm')}
+                            {moment(created_at).format('MMMM Do YYYY HH:mm')}
                         </React.Fragment>
                     }
                     />

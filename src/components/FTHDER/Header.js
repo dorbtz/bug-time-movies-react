@@ -11,6 +11,7 @@ import { GiArchiveRegister } from "react-icons/gi";
 import { MdLanguage } from "react-icons/md";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
+import SearchMovie from "../Search/SearchMovie";
 
 export class Header extends React.Component {
 
@@ -157,6 +158,7 @@ export class Header extends React.Component {
               </NavDropdown>
             </Nav>
             {/* "// SEARCH BAR HERE" */}
+            <SearchMovie  />
             {/* <SearchBar 
               value={data.search}
               onChange={(newValue) => setData({ search: newValue })}

@@ -18,7 +18,7 @@ import {SignOut} from "./components/SignOut";
 import Homepage from "./components/Homepage";
 // import {SignUpItamar} from "./components/ItamarSignUp";
 import {Header} from "./components/FTHDER/Header";
-import Headerex from "./components/FTHDER/Headerex";
+// import Headerex from "./components/FTHDER/Headerex";
 import Copyright from "./components/FTHDER/Footer";
 // import {TestProf} from './components/testprof'
 import MovieDetails from "./components/MovieDetails";
@@ -46,7 +46,8 @@ import {Western} from "./components/Genres/Western";
 import { Hebrew } from "./components/Languages/Hebrew";
 import { Espanol } from "./components/Languages/Espanol";
 import {English } from "./components/Languages/English";
-import SearchMovie from "./components/Search/SearchMovie";
+// import SearchMovie from "./components/Search/SearchMovie";
+// import Search from "./components/Search/Search";
 
 
 class App extends React.Component {
@@ -86,7 +87,7 @@ class App extends React.Component {
               <Route path="/movies/romance" element={<Romance />} />
               <Route path="/movies/science-fiction" element={<ScienceFiction />} />
               <Route path="/movies/western" element={<Western />} />
-              <Route path="/search/" element={<SearchMovie />} />
+              {/* <Route path="/search/" element={<SearchMovie />} /> */}
 
               /language routes
               <Route path="/movies/en" element={<English />} />

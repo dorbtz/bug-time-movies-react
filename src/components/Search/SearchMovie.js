@@ -1,13 +1,19 @@
 import React, {useState, useEffect} from 'react'
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import axios from 'axios';
 import { MOVIES_URL, MOVIE_SEARCH_URL } from '../request_utils';
 import { Form } from 'react-bootstrap'
 import moment from 'moment';
-import GetRating from '../getRating'
+// import GetRating from '../getRating'
 import { Link } from "react-router-dom" ;
-
+// import { VscDebugRestart } from "react-icons/vsc";
+// import Stack from 'react-bootstrap/Stack';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+// import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 function SearchMovie() {
 
@@ -17,7 +23,7 @@ function SearchMovie() {
 
     useEffect(() => {
         loadMoviesData();
-    }, [val])
+    }, [])
 
     const loadMoviesData = async () => {
         await axios.get(MOVIES_URL)
@@ -25,9 +31,9 @@ function SearchMovie() {
         .catch((error) => console.log(error))
     }
 
-    const handleResetSearch = () => {
-        loadMoviesData();
-    };
+    // const handleResetSearch = () => {
+    //     loadMoviesData();
+    // };
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -39,36 +45,31 @@ function SearchMovie() {
         .catch((err) => console.log(err));
     };
 
-    // const onChange = (event) => {
-    // setValue(event.target.value);
-    // };
+    const displayData = data.filter((movie) => {
+        const searchTerm = val.toLowerCase()
+        const fullName = movie.title.toLowerCase()
 
-    // const onSearch = (searchTerm) => {
-    // setValue(searchTerm);
-    // // our api to fetch the search result
-    // console.log("search ", searchTerm);
-    // };
-
-    // const moviesDisplay = data.map(filteredMovie => {
-    //     const filteredMovie_url = `/details/${filteredMovie.id}`
-
-    //     return(
-    //                 <div className="card movie_card" key={filteredMovie.id}>
-    //                     <img src={filteredMovie.image} className="card-img-top" alt={filteredMovie.slug + "-img"} />
-    //                     <div className="card-body">
-    //                     <Link to={filteredMovie_url}>            
-
-    //                     <i className="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="More Details">
-    //                     </i>
-    //                     </Link>
-    //                     <h5 className="card-title">{filteredMovie.title}</h5><br></br>
-    //                     <hr></hr>
-    //                     <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
-    //                     <GetRating key={filteredMovie.id} id={filteredMovie.id} />
-    //                     </div>
-    //                 </div>
-    //     )
-    // })
+        return searchTerm && fullName.startsWith(searchTerm)
+        })
+        .map(filteredMovie => {
+        const filteredMovie_url = `/details/${filteredMovie.id}`
+        return(
+                <div key={filteredMovie.id}>
+                <Link to={filteredMovie_url} underline="none" onClick={() => setVal("")}>
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background'}} >
+                    <ListItem>
+                    <ListItemAvatar>
+                        <Avatar>
+                            <img src={filteredMovie.image} alt={filteredMovie.slug + "image"} width={45} height={45}/>
+                        </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={filteredMovie.title} secondary={moment(filteredMovie.year_of_production).format('MMMM Do YYYY')} />
+                    </ListItem>
+                </List>
+                </Link>
+                </div> 
+        )
+    })
 
     return (
         <div>
@@ -86,31 +87,43 @@ function SearchMovie() {
         className="d-flex input-group w-auto"
         onSubmit={handleSearch}
         >
-            <input 
-            type="text"
-            className="form-control"
-            placeholder="Search movie..."
+        {/* <Autocomplete sx={{ width: 300 }}
+        freeSolo
+        id="free-solo-2-demo"
+        disableClearable
+        options={data.map((option) => option.title)}
+        renderInput={(params) => (
+            <TextField
+                {...params}
+                label="Search movie"
+                InputProps={{
+                ...params.InputProps,
+                type: 'search',
+                }}
+                value={val}
+                onChange={(event) => setVal(event.target.value)}
+            />
+        )}
+        /> */}
+            <TextField sx={{ width: 250 }}
+            type="search"
+            // className="form-control"
+            label="Search movie"
             value={val}
             onChange={(event) => setVal(event.target.value)}
             />
-            <ButtonGroup>
-                <Button type="submit" color="success">
-                    Search
+            {/* <div>
+                <Button startIcon={"🔍"}>
                 </Button>
-                <Button type="mx-2" color="info" onClick={() => handleResetSearch()}>
-
+                <div className="vr" />
+                <Button color="info" startIcon={<VscDebugRestart/>} onClick={() => handleResetSearch()}>
                 </Button>
-            </ButtonGroup>
-        </Form>
-
-            {/* {moviesDisplay} */}
-            <div className="container">
-                <div key={data.id}>
-                    title = {data.title}
-                    
-
-                </div>
+            </div> */}
+            <hr></hr>
+            <div className="data-wrapper">
+                {displayData}
             </div>
+        </Form>
         </div>
     )
 }
