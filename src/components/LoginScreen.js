@@ -31,7 +31,7 @@ export class LoginScreen extends React.Component {
         })
         .then(result => {
             window.localStorage.setItem("token", result.data.token)
-            console.log(result)
+            // console.log(result)
             this.props.navigate('/users/profile')
         })
         .catch(error => window.alert(error))

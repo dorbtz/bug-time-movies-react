@@ -26,7 +26,7 @@ componentDidMount() {
         axios.get(`${BASE_PATH}/user_profile/current`, {headers: {Authorization: 'Token ' + token}})
         .then(res => {
             if (res.status === 200) {
-            console.log("got response for user " + res.data.user)
+            // console.log("got response for user " + res.data.user)
             this.setState({user_profile: res.data})
             }
             else if (res.status === 401) {
@@ -64,21 +64,22 @@ updateUserProfile(profile)
 }
 renderMovies(movies){
 return(
-    <option value={movies.id}>{movies.title}</option>
+    <option key={movies.id} value={movies.id}>{movies.title}</option>
 )
 }
 
+
 render() {
     let moviesObjects = this.state.movies.map(this.renderMovies)
-    console.log(this.state)
+    // console.log(this.state)
 
     
 
     return(
-        <Container>
+        <Container key={this.state.user_profile.id}>
             <h1 className={'the-title'}>User Profile</h1>
-            <div style={{ width: "50%" }} className={"center"}>
-                <Form.Group className="mb-3">
+            <div style={{ width: "50%" }} className={"center"} key={this.state.user_profile.id}>
+                <Form.Group className="mb-3" key={this.state.user_profile.id}>
                     <Form.Group className="mb-3">
                         <Form.Label>City</Form.Label>
                         <Form.Control placeholder="Enter your city" value={this.state.user_profile.city}
@@ -99,98 +100,20 @@ render() {
                                     favorite_movie: event.target.value
                                 }
                             })}>
-                            <option>Pick favorite movie</option>
+                            <option>Pick favorite movie 🎞️</option>
                             {moviesObjects}
                         </Form.Select>
                     </Form.Group>
-                    {/* <Form.Group className="mb-3">
-                    <Form.Label>Favorite Genre</Form.Label>
-                            <Form value={this.state.user_profile.favorate_category} onChange={(event) => this.setState({category: event.target.value})}>
-                              {['checkbox'].map((movies) => (
-                                <div key={`inline-${movies.category}`} className="mb-3">
-                                  <Form.Check
-                                    inline
-                                    label="Action"
-                                    value="action"
-                                    id={`inline-${movies.category}-1`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Adventure"
-                                    value='adventure'
-                                    id={`inline-${movies.category}-2`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Animated"
-                                    value="animated"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Comedy"
-                                    value="comedy"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Crime"
-                                    value="crime"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Drama"
-                                    value="drama"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Fantasy"
-                                    value="fantasy"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Horror"
-                                    value="horror"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Historical"
-                                    value="historical"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Romance"
-                                    value="romance"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Western"
-                                    value="western"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="Science-fiction"
-                                    value="science-fiction"
-                                    id={`inline-${movies.category}-3`}
-                                  />
-                                </div>
-                              ))}
-                            </Form> */}
-                        {/* <Form.Select aria-label="Floating label select example" value={this.state.user_profile.favorite_category}
+                    <Form.Group className="mb-3">
+                      <Form.Label>Favorite Category</Form.Label>
+                        <Form.Select aria-label="Floating label select example" value={this.state.user_profile.favorite_category}
                             onChange={(event) => this.setState({
                                 user_profile: {
                                     ...this.state.user_profile,
                                     favorite_category: event.target.value
                                 }
                             })}>
-                            <option value="Favorite Genre">Pick favorite genre</option>
+                            <option value="none">Pick favorite genre 🎥</option>
                             <option value="action">ACTION</option>
                             <option value="adventure">ADVENTURE</option>
                             <option value="animated">ANIMATED</option>
@@ -203,8 +126,8 @@ render() {
                             <option value="romance">ROMANCE</option>
                             <option value="western">WESTERN</option>
                             <option value="science-fiction">SCIENCE FICTION</option>
-                        </Form.Select> */}
-                    {/* </Form.Group> */}
+                        </Form.Select>
+                    </Form.Group>
                     <div className={"center"}>
                         <Button type="submit"
                             onClick={() => this.updateUserProfile(this.state.user_profile)}>

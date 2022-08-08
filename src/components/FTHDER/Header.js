@@ -9,7 +9,7 @@ import {toast} from "react-toastify";
 import {BASE_PATH, TOKEN, CURRENT_USER } from "../request_utils";
 import { GiArchiveRegister } from "react-icons/gi";
 import { MdLanguage } from "react-icons/md";
-import { IoCalendarNumberOutline } from "react-icons/io5";
+// import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BiCategory } from "react-icons/bi";
 import SearchMovie from "../Search/SearchMovie";
 
@@ -30,17 +30,17 @@ export class Header extends React.Component {
 
   componentDidMount() {
     const token = window.localStorage.getItem('token')
-    if (token) {
+    try {if (token) {
       axios.get(CURRENT_USER, {headers: {Authorization: 'Token ' + token}})
       .then(response => {
         if (response.status === 200) {
           this.setState({first_name: response.data.first_name, last_name: response.data.last_name})
         }
-        else if (response.status === 401) {
-          console.log('401')
-        }
       })
     }
+  } catch (error) {
+    throw Error('could not find token, no username', error);
+  }
   }
 
   handleSubmit() {

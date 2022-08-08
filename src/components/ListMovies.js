@@ -14,7 +14,7 @@ const ListMovies = () => {
     useEffect(() => {
         axios.get(MOVIES_URL)
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data.data)
         setMovies(res.data.data)
         })
     
@@ -25,7 +25,7 @@ const ListMovies = () => {
         const movie_url = `/details/${movie.id}`
         return(
               <div className="card movie_card" key={movie.id}>
-                <img src={movie.image} className="card-img-top" alt="..." />
+                <img src={movie.image} className="card-img-top" alt={movie.slug + "img"} />
                 <div className="card-body">
                   <Link to={movie_url}>            
 

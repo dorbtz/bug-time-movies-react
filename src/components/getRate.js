@@ -18,7 +18,7 @@ const GetRate = (props) => {
         axiosInstance.get(`rating_detail/${props.id}`)
           .then(res => setRate(res.data.avg_rate))
     
-      }, [ignored])
+      }, [ignored, props.id])
 
     const handleRate = () => {
       axiosInstance
@@ -56,7 +56,7 @@ const GetRate = (props) => {
           <Button variant="contained" color="success">Rate this movie</Button>
           </OverlayTrigger>
           : 
-          <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">You need to login for get Rate access</Tooltip>}>
+          <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">You need to login to Rate movie</Tooltip>}>
             <span className="d-inline-block">
               <Button disabled style={{ pointerEvents: 'none' }}>
                 Rate Disabled

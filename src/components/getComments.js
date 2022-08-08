@@ -98,10 +98,18 @@ const GetComments = (props) => {
                     <IconButton aria-label="delete" onClick={() => deleteComment(id)}>
                         <DeleteIcon />
                     </IconButton>
-                    : 
-                    <IconButton aria-label="delete" disabled color="primary">
-                        <DeleteIcon />
-                    </IconButton>
+                    :
+                    <OverlayTrigger overlay={
+                        <Tooltip id="tooltip-disabled">
+                        You don't have permission to delete this comment
+                        </Tooltip>
+                    }>
+                        <span className="d-inline-block">
+                        <IconButton aria-label="delete" disabled color="primary">
+                            <DeleteIcon />
+                        </IconButton>
+                        </span>
+                    </OverlayTrigger>
                     }
                     <ListItemAvatar key={id} id={sender}>
                         <Avatar alt="Remy Sharp" src="https://www.citypng.com/public/uploads/preview/png-round-blue-contact-user-profile-icon-11639786938sxvzj5ogua.png" />
@@ -150,7 +158,7 @@ const GetComments = (props) => {
                                 Send
                         </Button>
                         : 
-                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">You need to login for get Comment access</Tooltip>}>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">login to get access to comment on this movie</Tooltip>}>
                             <span className="d-inline-block">
                                 <Button disabled style={{ pointerEvents: 'none' }} endIcon={<SendIcon />}>
                                     Comments Disabled

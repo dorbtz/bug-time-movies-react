@@ -133,8 +133,6 @@ return (
                         <div className="swiper-wrapper">
                             {recentlyAddedMovies}
                         </div>
-                        <div className="nextdirection recent-next"><img alt="" src="img/right-arrow.svg" /></div>
-                        <div className="leftdirection recent-prev"><img alt="" src="img/left-arrow.svg" /></div>
                     </div>
                 </div>
             </section>
@@ -148,8 +146,6 @@ return (
                         <div className="swiper-wrapper">
                             {mostWatchedMovies}
                         </div>
-                        <div className="nextdirection recent-next"><img alt="" src="img/right-arrow.svg" /></div>
-                        <div className="leftdirection recent-prev"><img alt="" src="img/left-arrow.svg" /></div>
                     </div>
                 </div>
             </section>
@@ -163,8 +159,6 @@ return (
                         <div className="swiper-wrapper">
                             {topRatedMovies}
                         </div>
-                        <div className="nextdirection recent-next"><img alt="" src="img/right-arrow.svg" /></div>
-                        <div className="leftdirection recent-prev"><img alt="" src="img/left-arrow.svg" /></div>
                     </div>
                 </div>
             </section>

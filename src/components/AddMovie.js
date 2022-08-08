@@ -3,7 +3,7 @@ import axios from 'axios';
 // import CardGroup from 'react-bootstrap/CardGroup'
 import { Form, Modal, ModalBody, ModalFooter, Container } from 'react-bootstrap';
 // import {GENRES_URL} from './request_utils'
-import {ADD_MOVIES_URL, MOVIES_URL} from './request_utils'
+import {ADD_MOVIES_URL, MOVIES_URL, NO_BANNER_URL, NO_POSTER_URL} from './request_utils'
 import {toast} from 'react-toastify'
 import {FaCheckCircle} from 'react-icons/fa'
 import { getHeader } from './request_utils';
@@ -21,8 +21,8 @@ export class AddMovie extends React.Component {
       showDetails: false,
       title: "",
       description: "",
-      image: "",
-      banner: "",
+      image: NO_POSTER_URL,
+      banner: NO_BANNER_URL,
       director: "",
       category: "",
       language: "",
@@ -140,8 +140,6 @@ export class AddMovie extends React.Component {
                                     <Form.Control 
                                         type="url" placeholder="Enter Movie's Poster" 
                                         value={this.state.image}
-                                        // defaultValue={NO_POSTER_URL}
-                                        defaultValue
                                         onChange={(event) => this.setState({image: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -152,8 +150,6 @@ export class AddMovie extends React.Component {
                                     <Form.Control 
                                         type="url" placeholder="Enter Movie's Banner" 
                                         value={this.state.banner}
-                                        // defaultValue={NO_BANNER_URL}
-                                        defaultValue
                                         onChange={(event) => this.setState({banner: event.target.value})}/>
                                 </Form.Text>
                             </Form.Group>
@@ -211,6 +207,7 @@ export class AddMovie extends React.Component {
                                 <Form.Label>Language</Form.Label>
                                 <Form.Select aria-label="Language" value={this.state.language} 
                                   onChange={(event) => this.setState({language: event.target.value})}>
+                                  <option value="none">Language</option>
                                   <option value="english">ENGLISH</option>
                                   <option value="hebrew">HEBREW</option>
                                   <option value="spanish">SPANISH</option>
@@ -221,6 +218,7 @@ export class AddMovie extends React.Component {
                                 <Form.Label>Status</Form.Label>
                                 <Form.Select aria-label="Status" value={this.state.status} 
                                   onChange={(event) => this.setState({status: event.target.value})}>
+                                  <option value="none">Status</option>
                                   <option value="recently-added">RECENTLY ADDED</option>
                                   <option value="most-watched">MOST WATCHED</option>
                                   <option value="top-rated">TOP RATED</option>

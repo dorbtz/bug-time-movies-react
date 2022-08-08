@@ -11,34 +11,35 @@ function UpdateMovie() {
 
     const [show, setShow] = useState([])
     const [movie, setMovie] = useState([])
+    const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
     const {id} = useParams()
-    const [data, setData] = useState({
-        title: "",
-        description: "",
-        image: "",
-        banner: "",
-        director: "",
-        category: "",
-        language: "",
-        status: "",
-        cast: "",
-        year_of_production: "",
-        views_count: "",
-        movie_trailer: "",
-    });
+    // const [data, setData] = useState({
+    //     title: "",
+    //     description: "",
+    //     image: "",
+    //     banner: "",
+    //     director: "",
+    //     category: "",
+    //     language: "",
+    //     status: "",
+    //     cast: "",
+    //     year_of_production: "",
+    //     views_count: "",
+    //     movie_trailer: "",
+    // });
 
     useEffect(() =>
     {
         axios.get(`${MOVIE_DETAIL_URL}${id}`)
             .then(res => setMovie(res.data))
-    }, [id])
+    }, [ignored, id])
 
     
-    function handle(e){
-        const newdata = {...movie}
-        newdata[e.target] = e.target.value
-        setMovie(newdata)
-    } 
+    // function handle(e){
+    //     const newdata = {...movie}
+    //     newdata[e.target] = e.target.value
+    //     setMovie(newdata)
+    // } 
     
     const handleEditSave = () => {
         console.log('Using Update movie function')
@@ -59,12 +60,12 @@ function UpdateMovie() {
         }
         )
         .then(res => {
-            if (res.status === 201) {
+            if (res.status === 200) {
                 toast("The movie Updated Successfuly", {
                     theme: "green",
                     icon: "✔️"
                 })
-                // forceUpdate()
+                forceUpdate()
             }
             else {
                 console.log(res.data)
@@ -110,7 +111,7 @@ function UpdateMovie() {
                                 type="text" placeholder="Enter Movie's Title" 
                                 value={movie.title}
                                 // onChange={(e) => handle(e)}
-                                onChange={(event) => setMovie({title: event.target.value})}
+                                onChange={(event) => setMovie({...movie, title: event.target.value})}
                                 />
                         </Form.Text>
                     </Form.Group>
@@ -122,7 +123,7 @@ function UpdateMovie() {
                                 type="url" placeholder="Enter Movie's Poster" 
                                 value={movie.image}
                                 // onChange={(e) => handle(e)}
-                                onChange={(event) => setMovie({image: event.target.value})}
+                                onChange={(event) => setMovie({...movie, image: event.target.value})}
                                 />
                         </Form.Text>
                     </Form.Group>
@@ -134,7 +135,7 @@ function UpdateMovie() {
                                 type="url" placeholder="Enter Movie's Banner" 
                                 value={movie.banner}
                                 // onChange={(e) => handle(e)}
-                                onChange={(event) => setMovie({banner: event.target.value})}
+                                onChange={(event) => setMovie({...movie, banner: event.target.value})}
                                 />
                         </Form.Text>
                     </Form.Group>
@@ -146,7 +147,7 @@ function UpdateMovie() {
                                 type="text" placeholder="Enter Movie's description" 
                                 value={movie.description}
                                 // onChange={(e) => handle(e)}
-                                onChange={(event) => setMovie({description: event.target.value})}
+                                onChange={(event) => setMovie({...movie, description: event.target.value})}
                                 />
                         </Form.Text>
                     </Form.Group>
@@ -155,7 +156,7 @@ function UpdateMovie() {
                         <Form.Label>Category</Form.Label>
                         <Form.Select aria-label="Floating label select example" value={movie.category} 
                         // onChange={(e) => handle(e)}
-                        onChange={(event) => setMovie({category: event.target.value})}
+                        onChange={(event) => setMovie({...movie, category: event.target.value})}
                         >
                             <option value="none">Genres</option>
                             <option value="action">ACTION</option>
@@ -176,7 +177,7 @@ function UpdateMovie() {
                     <Form.Group className="mb-3">
                         <Form.Label>Language</Form.Label>
                         <Form.Select aria-label="Floating label select example" value={movie.language} 
-                        onChange={(event) => setMovie({language: event.target.value})}
+                        onChange={(event) => setMovie({...movie, language: event.target.value})}
                         // onChange={(e) => handle(e)}
                         >
                         <option value="english">English</option>
@@ -189,7 +190,7 @@ function UpdateMovie() {
                         <Form.Label>Status</Form.Label>
                         <Form.Select aria-label="Floating label select example" value={movie.status} 
                         // onChange={(e) => handle(e)}
-                        onChange={(event) => setMovie({status: event.target.value})} 
+                        onChange={(event) => setMovie({...movie, status: event.target.value})} 
                         >
                         <option value="recently-added">Recently added</option>
                         <option value="top-rated">Top rated</option>
@@ -204,7 +205,7 @@ function UpdateMovie() {
                                 type="text" placeholder="Enter Movie's cast" 
                                 value={movie.cast}
                                 // onChange={(e) => handle(e)}
-                                onChange={(event) => setMovie({cast: event.target.value})}
+                                onChange={(event) => setMovie({...movie, cast: event.target.value})}
                                 />
                         </Form.Text>
                     </Form.Group>
@@ -216,7 +217,7 @@ function UpdateMovie() {
                                 type="date" placeholder="Enter Movie's release date" 
                                 value={movie.year_of_production}
                                 // onChange={(e) => handle(e)}
-                                onChange={(event) => setMovie({year_of_production: event.target.value})}
+                                onChange={(event) => setMovie({...movie, year_of_production: event.target.value})}
                                 />
                         </Form.Text>
                     </Form.Group>
@@ -228,7 +229,7 @@ function UpdateMovie() {
                                 type="url" placeholder="Enter Trailer's URL" 
                                 value={movie.movie_trailer}
                                 // onChange={(e) => handle(e)}
-                                onChange={(event) => setMovie({movie_trailer: (event.target.value)})}
+                                onChange={(event) => setMovie({...movie, movie_trailer: (event.target.value)})}
                                 />
                         </Form.Text>
                     </Form.Group>

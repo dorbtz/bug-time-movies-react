@@ -42,15 +42,18 @@ export const USER_REGISTRATION = `${BASE_PATH}/register/`
 
 export const TOKEN = `${BASE_PATH}/token/`
 
-// export const NO_POSTER_URL = "https://screench.com/upload/no-poster.jpeg"
+export const NO_POSTER_URL = "https://screench.com/upload/no-poster.jpeg"
 
-// export const NO_BANNER_URL = "https://i.postimg.cc/D06BsSpB/bugtime-movies.jpg"
+export const NO_BANNER_URL = "https://i.postimg.cc/D06BsSpB/bugtime-movies.jpg"
 
 export function getHeader() {
     const token = window.localStorage.getItem('token')
-    if (!token) {
+    try { if (!token) {
         // go to login
         window.location.href = `${BASE_PATH}/login`
     }
     return {headers: {Authorization: 'Token ' + token}}
+    } catch (error) {
+        throw Error('could not find token, no username', error);
+    }
 }

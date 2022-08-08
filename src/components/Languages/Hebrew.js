@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import {MOVIES_URL} from '../request_utils';
-import GetRate from '../getRate';
+import GetRating from '../getRating';
 import { Link } from "react-router-dom" ;
 import moment from "moment";
 // import { Row, Col } from 'react-bootstrap';
@@ -36,7 +36,7 @@ export const Hebrew = () => {
                         </Link>
                         <h5 className="card-title">{filteredMovie.title}</h5>
                         <span className="movie_info">{moment(filteredMovie.year_of_production).format('YYYY/MM')}</span>
-                        <GetRate id={filteredMovie.id} />
+                        <GetRating id={filteredMovie.id} key={filteredMovie.id} />
                         </div>
                     </div>
       )
